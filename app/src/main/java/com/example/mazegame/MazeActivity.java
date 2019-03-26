@@ -13,17 +13,27 @@ import android.widget.ImageView;
 
 public class MazeActivity extends AppCompatActivity {
 
-    MazeCanvas mazeCanvas;
+    private MazeCanvas mazeCanvas;
+    private Maze easyMaze;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_maze);
         Log.e("mazeActivity", "about make new canvas");
-        mazeCanvas = new MazeCanvas(this,10,20);
+        easyMaze = new Maze(10,20);
+        testMakeMaze(easyMaze);
+        mazeCanvas = new MazeCanvas(this,easyMaze);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
 
+
+    }
+
+    private void testMakeMaze(Maze m ){
+        m.addWall(new MazeWall(0,0,Orientation.horizontal));
+        m.addWall(new MazeWall(0,0,Orientation.vertical));
+        m.addWall(new MazeWall(1,0,Orientation.horizontal));
 
     }
 
