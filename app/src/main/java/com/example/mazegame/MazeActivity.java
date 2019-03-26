@@ -24,6 +24,7 @@ public class MazeActivity extends AppCompatActivity {
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
 
+
     }
 
 
