@@ -4,38 +4,23 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class MazeCanvas extends View {
     int canvasWidth, canvasHeight, width, height;
-    int verticalWallLength, verticalWallThickness;
-    int horizontalWallLength, horizontalWallThickness;
-    Paint verticalLinePaint, horizontalLinePaint;
-    Rect verticalWall, horizontalWall;
-    ArrayList<Rect> verticalWalls, horizontalWalls;
+    int verticalWallLength, horizontalWallLength, wallThickness;
+    Paint wallPaint;
+    Maze maze;
 
-    public MazeCanvas(Context context, int w, int h) {
+    public MazeCanvas(Context context, Maze maze) {
         super(context);
-        width = w;
-        height = h;
-        verticalWallThickness = 3;
-        horizontalWallThickness = 3;
-        verticalLinePaint = new Paint();
-        horizontalLinePaint = new Paint();
-        verticalWall = new Rect();
-        horizontalWall = new Rect();
-        verticalWalls = new ArrayList<Rect>();
-        horizontalWalls = new ArrayList<Rect>();
+        width = maze.getWidth();
+        height = maze.getHeight();
+        wallThickness = 3;  //3 is testing value. Will need to be calculated later
+        wallPaint = new Paint();
+        this.maze = maze;
     }
-
-    public void addVertWall(Rect r) {
-        verticalWalls.add(r);
-    }
-
 
 
     @Override
@@ -45,20 +30,30 @@ public class MazeCanvas extends View {
         canvasHeight = getHeight();
         horizontalWallLength = (int) canvasWidth/width;
         verticalWallLength = (int) canvasHeight/height;
-        addVertWall(verticalWall);
-        addVertWall(horizontalWall);
-        verticalLinePaint.setColor(Color.WHITE);
-        verticalLinePaint.setStrokeWidth(3);
-        horizontalLinePaint.setColor(Color.WHITE);
-        horizontalLinePaint.setStrokeWidth(3);
+        wallPaint.setColor(Color.WHITE);
+        wallPaint.setStrokeWidth(wallThickness);
         Log.e("mazeCanvas","canvaswidht: "+canvasWidth+" canvasheight: "+canvasHeight);
         Log.e("MazeCanvas", "onDraw: about to loop; h: "+horizontalWallLength+" v: "+verticalWallLength);
-        for (int i = 0; i < verticalWalls.size(); i++) {
+        for (int i = 0; i < maze.getWalls().size(); i++) {
             Log.e("MazeCanvas", "looping "+i);
-            canvas.drawRect(i*horizontalWallLength,0,i*horizontalWallLength+4,
-                    (1)*verticalWallLength, verticalLinePaint);
+            if (maze.getWalls().get(i).getDirection() == Orientation.horizontal) {
+                drawHorizontalWall(maze.getWalls().get(i),canvas);
+                Log.e("MazeCanvas", "draw horizontal");
+            } else if(maze.getWalls().get(i).getDirection() == Orientation.vertical) {
+                drawVerticalWall(maze.getWalls().get(i),canvas);
+                Log.e("MazeCanvas", "draw vertical");
+            }
         }
 
     }
 
+    private void drawHorizontalWall(MazeWall w, Canvas c){
+        c.drawRect(w.getColumn()*horizontalWallLength,w.getRow()*verticalWallLength,
+                (w.getColumn()+1)*horizontalWallLength, w.getRow()*verticalWallLength+wallThickness,wallPaint);
+    }
+
+    private void drawVerticalWall(MazeWall w, Canvas c){
+        c.drawRect(w.getColumn()*horizontalWallLength,w.getRow()*verticalWallLength,
+                w.getColumn()*horizontalWallLength+wallThickness, (w.getRow()+1)*verticalWallLength,wallPaint);
+    }
 }
