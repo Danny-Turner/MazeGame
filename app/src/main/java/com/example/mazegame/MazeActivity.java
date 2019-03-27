@@ -31,10 +31,12 @@ public class MazeActivity extends AppCompatActivity {
     }
 
     private void testMakeMaze(Maze m ){
-        m.addWall(new MazeWall(0,0,Orientation.horizontal));
-        m.addWall(new MazeWall(0,0,Orientation.vertical));
-        m.addWall(new MazeWall(1,0,Orientation.horizontal));
-
+        for (int i=0; i< m.getHeight(); i++){
+            for (int j= 0; j < m.getWidth(); j++) {
+                m.addWall(new MazeWall(i, j, Orientation.horizontal));
+                m.addWall(new MazeWall(i, j, Orientation.vertical));
+            }
+        }
     }
 
 

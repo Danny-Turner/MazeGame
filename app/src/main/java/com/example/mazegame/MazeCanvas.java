@@ -44,7 +44,7 @@ public class MazeCanvas extends View {
                 Log.e("MazeCanvas", "draw vertical");
             }
         }
-
+        invalidate();
     }
 
     private void drawHorizontalWall(MazeWall w, Canvas c){
