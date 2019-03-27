@@ -12,6 +12,7 @@ import android.view.View;
 
 public class MazeCanvas extends View {
 
+    BallHandler ballHandler;
     int canvasWidth, canvasHeight, width, height;
     int verticalWallLength, horizontalWallLength, wallThickness;
     Paint wallPaint;
@@ -19,7 +20,7 @@ public class MazeCanvas extends View {
     Bitmap ball;
 
 
-    public MazeCanvas(Context context, Maze maze) {
+    public MazeCanvas(Context context, Maze maze, BallHandler ballHandler) {
         super(context);
         width = maze.getWidth();
         height = maze.getHeight();
@@ -27,13 +28,14 @@ public class MazeCanvas extends View {
         wallPaint = new Paint();
         this.maze = maze;
         createBall();
+        this.ballHandler = ballHandler;
 
     }
 
     private void createBall(){
         Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        final int width = 100;
-        final int height = 100;
+        final int width = 50;
+        final int height = 50;
         ball = Bitmap.createScaledBitmap(ballSrc, width, height, true);
     }
 
@@ -61,8 +63,7 @@ public class MazeCanvas extends View {
                 Log.e("MazeCanvas", "draw vertical");
             }
         }
-        //TODO: make this connected to the ball object
-        //canvas.drawBitmap(ball, xPos, yPos, null);
+        canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         invalidate();
     }
 
