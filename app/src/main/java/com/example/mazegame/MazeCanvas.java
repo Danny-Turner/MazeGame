@@ -16,6 +16,7 @@ public class MazeCanvas extends View {
     int verticalWallLength, horizontalWallLength, wallThickness;
     Paint wallPaint;
     Maze maze;
+    Bitmap ball;
 
 
     public MazeCanvas(Context context, Maze maze) {
@@ -25,21 +26,18 @@ public class MazeCanvas extends View {
         wallThickness = 3;  //3 is testing value. Will need to be calculated later
         wallPaint = new Paint();
         this.maze = maze;
+        createBall();
+
     }
 
-    private class BallView extends View {
-
-        public BallView(Context context) {
-            super(context);
-
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-
-            invalidate();
-        }
+    private void createBall(){
+        Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+        final int width = 100;
+        final int height = 100;
+        ball = Bitmap.createScaledBitmap(ballSrc, width, height, true);
     }
+
+
 
 
 
@@ -63,6 +61,8 @@ public class MazeCanvas extends View {
                 Log.e("MazeCanvas", "draw vertical");
             }
         }
+        //TODO: make this connected to the ball object
+        //canvas.drawBitmap(ball, xPos, yPos, null);
         invalidate();
     }
 
