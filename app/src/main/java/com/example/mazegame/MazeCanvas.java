@@ -1,6 +1,8 @@
 package com.example.mazegame;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +11,7 @@ import android.view.ContextMenu;
 import android.view.View;
 
 public class MazeCanvas extends View {
+
     int canvasWidth, canvasHeight, width, height;
     int verticalWallLength, horizontalWallLength, wallThickness;
     Paint wallPaint;
@@ -22,7 +25,20 @@ public class MazeCanvas extends View {
         wallThickness = 3;  //3 is testing value. Will need to be calculated later
         wallPaint = new Paint();
         this.maze = maze;
+    }
 
+    private class BallView extends View {
+
+        public BallView(Context context) {
+            super(context);
+
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+
+            invalidate();
+        }
     }
 
 
@@ -30,8 +46,7 @@ public class MazeCanvas extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvasWidth = getWidth();
-        canvasHeight = getHeight();
+        setUpCanvasDimensions();
         horizontalWallLength = (int) canvasWidth/width;
         verticalWallLength = (int) canvasHeight/height;
         wallPaint.setColor(Color.WHITE);
@@ -49,6 +64,11 @@ public class MazeCanvas extends View {
             }
         }
         invalidate();
+    }
+
+    private void setUpCanvasDimensions(){
+        canvasWidth = getWidth();
+        canvasHeight = getHeight();
     }
 
     private void drawHorizontalWall(MazeWall w, Canvas c){
