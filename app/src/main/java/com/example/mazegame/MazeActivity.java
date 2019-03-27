@@ -34,7 +34,7 @@ public class MazeActivity extends Activity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //setContentView(R.layout.activity_maze);
         Point point = setUpBoundries();
-        ballhandler = new BallHandler(point.x - 100, point.y - 100);
+        ballhandler = new BallHandler(point.x - 50, point.y - 50);
 
 
         Log.e("mazeActivity", "about make new canvas");
