@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.View;
 
 public class MazeCanvas extends View {
@@ -13,6 +14,7 @@ public class MazeCanvas extends View {
     Paint wallPaint;
     Maze maze;
 
+
     public MazeCanvas(Context context, Maze maze) {
         super(context);
         width = maze.getWidth();
@@ -20,7 +22,9 @@ public class MazeCanvas extends View {
         wallThickness = 3;  //3 is testing value. Will need to be calculated later
         wallPaint = new Paint();
         this.maze = maze;
+
     }
+
 
 
     @Override

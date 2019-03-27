@@ -23,9 +23,17 @@ public class MazeActivity extends AppCompatActivity {
         Log.e("mazeActivity", "about make new canvas");
         easyMaze = new Maze(10,20);
         testMakeMaze(easyMaze);
-        mazeCanvas = new MazeCanvas(this,easyMaze);
+        mazeCanvas = new MazeCanvas(this, easyMaze);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
+
+        //need to create a canvas, the object should be the canvas
+        //try to create the maze in the canvas at first
+        //or may need to create it in the xml
+
+
+
+
 
 
     }
