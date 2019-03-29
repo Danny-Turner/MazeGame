@@ -40,6 +40,7 @@ public class BallHandler implements SensorEventListener {
     }
 
     private void updatedBall() {
+        //TODO: when the ball hits a wall these numbers keep getting larger
         float frameLength = 0.666f;
         xvel += (xaccel * frameLength);
         yvel += (yaccel * frameLength);
