@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/toEasy"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="143dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="25dp"
+        android:text="EASY"
+        app:layout_constraintBottom_toTopOf="@+id/toMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toMedium"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="25dp"
+        android:text="MEDIUM"
+        app:layout_constraintBottom_toTopOf="@+id/toHard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toEasy" />
+
+    <Button
+        android:id="@+id/toHard"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="273dp"
+        android:text="HARD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toMedium" />
+</android.support.constraint.ConstraintLayout>
