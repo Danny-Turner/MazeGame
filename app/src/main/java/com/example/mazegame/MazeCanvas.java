@@ -14,7 +14,7 @@ public class MazeCanvas extends View {
 
     BallHandler ballHandler;
     int canvasWidth, canvasHeight, width, height;
-    int verticalWallLength, horizontalWallLength, wallThickness;
+    int verticalWallLength, horizontalWallLength, wallLength,wallThickness;
     Paint wallPaint;
     Maze maze;
     Bitmap ball;
@@ -49,6 +49,7 @@ public class MazeCanvas extends View {
         setUpCanvasDimensions();
         horizontalWallLength = (int) canvasWidth/width;
         verticalWallLength = (int) canvasHeight/height;
+        wallLength = Math.min(horizontalWallLength,verticalWallLength);
         wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(wallThickness);
      //   Log.e("mazeCanvas","canvaswidht: "+canvasWidth+" canvasheight: "+canvasHeight);
@@ -78,7 +79,7 @@ public class MazeCanvas extends View {
     }
 
     private void drawVerticalWall(MazeWall w, Canvas c){
-        c.drawRect(w.getColumn()*horizontalWallLength,w.getRow()*verticalWallLength,
+        c.drawRect(w.getColumn()*horizontalWallLength-1,w.getRow()*verticalWallLength,
                 w.getColumn()*horizontalWallLength+wallThickness, (w.getRow()+1)*verticalWallLength,wallPaint);
     }
 }

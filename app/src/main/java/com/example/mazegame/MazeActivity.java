@@ -38,7 +38,7 @@ public class MazeActivity extends Activity{
         ballhandler = new BallHandler(point.x - 50, point.y - 50);
         MazeReader test = new MazeReader();
         try {
-            test.loadMaze(getAssets().open("TestMaze"));
+            test.loadMaze(getAssets().open("10x20maze"));
         } catch (IOException e) {
             Log.e("MainActivity", "Could not read MazeData");
         }

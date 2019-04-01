@@ -24,10 +24,10 @@ public class MazeReader {
         int width = parseInt(dimensions[0]);
         int height = parseInt(dimensions[1]);
         maze = new Maze(width,height);
-        for (int i = 0; i <= width; i++) {
+        for (int i = 0; i <= height; i++) {
             line = input.nextLine();
             String[] mazeData = line.split(",");
-            for (int j = 0; j <= height; j++) {
+            for (int j = 0; j <= width; j++) {
                 if (parseInt(mazeData[j]) == 1 || parseInt(mazeData[j]) == 3) {
                     maze.addWall(new MazeWall(i, j, Orientation.vertical));
                     Log.e("MazeReader", "adding wall: " + i + ", " + j + " vertical");
