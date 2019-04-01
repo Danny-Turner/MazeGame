@@ -51,16 +51,16 @@ public class MazeCanvas extends View {
         verticalWallLength = (int) canvasHeight/height;
         wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(wallThickness);
-        Log.e("mazeCanvas","canvaswidht: "+canvasWidth+" canvasheight: "+canvasHeight);
-        Log.e("MazeCanvas", "onDraw: about to loop; h: "+horizontalWallLength+" v: "+verticalWallLength);
+     //   Log.e("mazeCanvas","canvaswidht: "+canvasWidth+" canvasheight: "+canvasHeight);
+     //   Log.e("MazeCanvas", "onDraw: about to loop; h: "+horizontalWallLength+" v: "+verticalWallLength);
         for (int i = 0; i < maze.getWalls().size(); i++) {
-            Log.e("MazeCanvas", "looping "+i);
+     //       Log.e("MazeCanvas", "looping "+i);
             if (maze.getWalls().get(i).getDirection() == Orientation.horizontal) {
                 drawHorizontalWall(maze.getWalls().get(i),canvas);
-                Log.e("MazeCanvas", "draw horizontal");
+     //           Log.e("MazeCanvas", "draw horizontal");
             } else if(maze.getWalls().get(i).getDirection() == Orientation.vertical) {
                 drawVerticalWall(maze.getWalls().get(i),canvas);
-                Log.e("MazeCanvas", "draw vertical");
+    //            Log.e("MazeCanvas", "draw vertical");
             }
         }
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);

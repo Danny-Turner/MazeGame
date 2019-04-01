@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.io.IOException;
+
 public class MazeActivity extends Activity{
 
     private MazeCanvas mazeCanvas;
@@ -32,14 +34,15 @@ public class MazeActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //setContentView(R.layout.activity_maze);
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x - 50, point.y - 50);
-
-
-        Log.e("mazeActivity", "about make new canvas");
-        easyMaze = new Maze(10,20);
-        testMakeMaze(easyMaze);
+        MazeReader test = new MazeReader();
+        try {
+            test.loadMaze(getAssets().open("TestMaze"));
+        } catch (IOException e) {
+            Log.e("MainActivity", "Could not read MazeData");
+        }
+        easyMaze = test.getMaze();
         mazeCanvas = new MazeCanvas(this, easyMaze, ballhandler);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
@@ -82,14 +85,7 @@ public class MazeActivity extends Activity{
     }
 
 
-    private void testMakeMaze(Maze m ){
-        for (int i=0; i< m.getHeight(); i++){
-            for (int j= 0; j < m.getWidth(); j++) {
-                m.addWall(new MazeWall(i, j, Orientation.horizontal));
-                m.addWall(new MazeWall(i, j, Orientation.vertical));
-            }
-        }
-    }
+
 
 
 }
