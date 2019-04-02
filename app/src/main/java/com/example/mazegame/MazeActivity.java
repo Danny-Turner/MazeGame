@@ -24,6 +24,14 @@ public class MazeActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+
+
+
+        asjdbf;kjansd;fknwefasd.fn
+        sa.kjdfnaksdnf.asjf
+        sa.dkjfn
+         */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x, point.y);
