@@ -37,7 +37,7 @@ public class MazeActivity extends Activity{
         ballhandler = new BallHandler(point.x, point.y);
         MazeReader test = new MazeReader();
         try {
-            test.loadMaze(getAssets().open("10x15maze"));
+            test.loadMaze(getAssets().open("8x12maze"));
         } catch (IOException e) {
             Log.e("MainActivity", "Could not read MazeData");
         }
@@ -53,6 +53,11 @@ public class MazeActivity extends Activity{
         //or may need to create it in the xml
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        //
+        //
+        //
+        //
+        
     }
 
     @Override
