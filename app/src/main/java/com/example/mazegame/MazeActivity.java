@@ -45,6 +45,11 @@ public class MazeActivity extends Activity{
         //or may need to create it in the xml
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        //
+        //
+        //
+        //
+        
     }
 
     @Override
