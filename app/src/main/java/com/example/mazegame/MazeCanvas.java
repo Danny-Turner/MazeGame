@@ -6,80 +6,86 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.View;
 
 public class MazeCanvas extends View {
 
-    BallHandler ballHandler;
-    int canvasWidth, canvasHeight, width, height;
-    int verticalWallLength, horizontalWallLength, wallLength,wallThickness;
-    Paint wallPaint;
-    Maze maze;
-    Bitmap ball;
+    private BallHandler ballHandler;
+    private int wallLength, wallThickness;
+    private Paint wallPaint;
+    private Maze maze;
+    private Bitmap ball;
 
 
-    public MazeCanvas(Context context, Maze maze, BallHandler ballHandler) {
+    public MazeCanvas(Context context, int displayWidth, int displayHeight, Maze maze, BallHandler ballHandler) {
         super(context);
-        width = maze.getWidth();
-        height = maze.getHeight();
         wallThickness = 3;  //3 is testing value. Will need to be calculated later
         wallPaint = new Paint();
         this.maze = maze;
-        createBall();
         this.ballHandler = ballHandler;
+        int horizontalWallLength = (int) displayWidth / maze.getWidth();
+        int verticalWallLength = (int) displayHeight / maze.getHeight();
+        wallLength = Math.min(horizontalWallLength,verticalWallLength);
+        createBall();
 
     }
 
     private void createBall(){
         Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        final int width = 50;
-        final int height = 50;
+        final int width = wallLength/2;
+        final int height = wallLength/2;
         ball = Bitmap.createScaledBitmap(ballSrc, width, height, true);
     }
-
-
-
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        setUpCanvasDimensions();
-        horizontalWallLength = (int) canvasWidth/width;
-        verticalWallLength = (int) canvasHeight/height;
-        wallLength = Math.min(horizontalWallLength,verticalWallLength);
-        wallPaint.setColor(Color.WHITE);
-        wallPaint.setStrokeWidth(wallThickness);
-     //   Log.e("mazeCanvas","canvaswidht: "+canvasWidth+" canvasheight: "+canvasHeight);
-     //   Log.e("MazeCanvas", "onDraw: about to loop; h: "+horizontalWallLength+" v: "+verticalWallLength);
-        for (int i = 0; i < maze.getWalls().size(); i++) {
-     //       Log.e("MazeCanvas", "looping "+i);
-            if (maze.getWalls().get(i).getDirection() == Orientation.horizontal) {
-                drawHorizontalWall(maze.getWalls().get(i),canvas);
-     //           Log.e("MazeCanvas", "draw horizontal");
-            } else if(maze.getWalls().get(i).getDirection() == Orientation.vertical) {
-                drawVerticalWall(maze.getWalls().get(i),canvas);
-    //            Log.e("MazeCanvas", "draw vertical");
-            }
-        }
+        drawMaze(maze,canvas);
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         invalidate();
     }
 
-    private void setUpCanvasDimensions(){
-        canvasWidth = getWidth();
-        canvasHeight = getHeight();
+
+    private void drawMaze(Maze m, Canvas canvas) {
+        wallPaint.setColor(Color.WHITE);
+        wallPaint.setStrokeWidth(wallThickness);
+        for (int i = 0; i < maze.getWalls().size(); i++) {
+            canvas.drawRect(getRect(maze.getWalls().get(i)),wallPaint);
+        }
     }
 
-    private void drawHorizontalWall(MazeWall w, Canvas c){
-        c.drawRect(w.getColumn()*horizontalWallLength,w.getRow()*verticalWallLength,
-                (w.getColumn()+1)*horizontalWallLength, w.getRow()*verticalWallLength+wallThickness,wallPaint);
+    private Rect getRect(MazeWall wall) {
+        if (wall.getDirection() == Orientation.horizontal) {
+            return new Rect(wall.getColumn()*wallLength,wall.getRow()*wallLength,
+                    (wall.getColumn()+1)*wallLength, wall.getRow()*wallLength+wallThickness);
+        }
+        return new Rect(wall.getColumn()*wallLength-1,wall.getRow()*wallLength,
+                wall.getColumn()*wallLength+wallThickness, (wall.getRow()+1)*wallLength);
     }
 
-    private void drawVerticalWall(MazeWall w, Canvas c){
-        c.drawRect(w.getColumn()*horizontalWallLength-1,w.getRow()*verticalWallLength,
-                w.getColumn()*horizontalWallLength+wallThickness, (w.getRow()+1)*verticalWallLength,wallPaint);
+    private Point getWallUpperLeft(MazeWall wall) {
+        Rect rectangle = getRect(wall);
+        return new Point(rectangle.left,rectangle.top);
+    }
+
+    private Point getWallUpperRight(MazeWall wall) {
+        Rect rectangle = getRect(wall);
+        return new Point(rectangle.right,rectangle.top);
+    }
+
+    private Point getWallBottomLeft(MazeWall wall) {
+        Rect rectangle = getRect(wall);
+        return new Point(rectangle.left,rectangle.bottom);
+    }
+
+    private Point getWallBottomRight(MazeWall wall) {
+        Rect rectangle = getRect(wall);
+        return new Point(rectangle.right,rectangle.bottom);
     }
 }
+
