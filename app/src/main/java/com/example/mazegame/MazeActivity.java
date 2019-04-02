@@ -3,29 +3,20 @@ package com.example.mazegame;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import java.io.IOException;
 
 public class MazeActivity extends Activity{
 
     private MazeCanvas mazeCanvas;
-    private Maze easyMaze;
+    private Maze hardMaze;
     private SensorManager sensorManager;
     private BallHandler ballhandler;
 
@@ -35,15 +26,15 @@ public class MazeActivity extends Activity{
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Point point = setUpBoundries();
-        ballhandler = new BallHandler(point.x - 50, point.y - 50);
+        ballhandler = new BallHandler(point.x - 50, point.y - 150);
         MazeReader test = new MazeReader();
         try {
-            test.loadMaze(getAssets().open("10x20maze"));
+            test.loadMaze(getAssets().open("10x15maze"));
         } catch (IOException e) {
             Log.e("MainActivity", "Could not read MazeData");
         }
-        easyMaze = test.getMaze();
-        mazeCanvas = new MazeCanvas(this, easyMaze, ballhandler);
+        hardMaze = test.getMaze();
+        mazeCanvas = new MazeCanvas(this, point.x, point.y, hardMaze, ballhandler);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
 
@@ -54,19 +45,14 @@ public class MazeActivity extends Activity{
         //or may need to create it in the xml
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-
-
-
     }
-
-
 
     @Override
     protected void onStart() {
         super.onStart();
         //registers the listener on start
-        sensorManager.registerListener(ballhandler, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(ballhandler, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_GAME);
     }
 
     //removes the listener on close
@@ -83,9 +69,5 @@ public class MazeActivity extends Activity{
         display.getSize(point);
         return point;
     }
-
-
-
-
 
 }

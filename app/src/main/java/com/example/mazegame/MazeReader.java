@@ -30,11 +30,9 @@ public class MazeReader {
             for (int j = 0; j <= width; j++) {
                 if (parseInt(mazeData[j]) == 1 || parseInt(mazeData[j]) == 3) {
                     maze.addWall(new MazeWall(i, j, Orientation.vertical));
-                    Log.e("MazeReader", "adding wall: " + i + ", " + j + " vertical");
                 }
                 if (parseInt(mazeData[j]) == 2 || parseInt(mazeData[j]) == 3) {
                     maze.addWall(new MazeWall(i,j, Orientation.horizontal));
-                    Log.e("MazeReader", "adding wall: "+i+", "+j+" horizontal");
                 }
             }
         }
