@@ -38,6 +38,7 @@ public class MazeCanvas extends View {
         Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         final int width = wallLength/2;
         final int height = wallLength/2;
+        //TODO: change ball width in ball handler
         ball = Bitmap.createScaledBitmap(ballSrc, width, height, true);
     }
 
@@ -56,6 +57,7 @@ public class MazeCanvas extends View {
         wallPaint.setStrokeWidth(wallThickness);
         for (int i = 0; i < maze.getWalls().size(); i++) {
             canvas.drawRect(getRect(maze.getWalls().get(i)),wallPaint);
+            //TODO: do collisions here
         }
     }
 

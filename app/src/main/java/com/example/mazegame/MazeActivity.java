@@ -26,7 +26,7 @@ public class MazeActivity extends Activity{
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Point point = setUpBoundries();
-        ballhandler = new BallHandler(point.x - 50, point.y - 50);
+        ballhandler = new BallHandler(point.x, point.y);
         MazeReader test = new MazeReader();
         try {
             test.loadMaze(getAssets().open("10x15maze"));
