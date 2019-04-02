@@ -5,4 +5,7 @@
     <string name="to_maze">To Maze</string>
     <string name="high_scores">High Scores</string>
     <string name="play">PLAY</string>
+    <string name="easy">EASY</string>
+    <string name="medium">MEDIUM</string>
+    <string name="hard">HARD</string>
 </resources>
