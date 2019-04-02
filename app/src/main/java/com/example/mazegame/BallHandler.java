@@ -57,14 +57,19 @@ public class BallHandler implements SensorEventListener {
 
         if (xpos > xMax) {
             xpos = xMax;
+            xvel = 0;
         } else if (xpos < 0) {
             xpos = 0;
+            xvel = 0;
         }
 
         if (ypos > yMax) {
             ypos = yMax;
+            yvel = 0;
         } else if (ypos < 0) {
             ypos = 0;
+            yvel = 0;
+
         }
     }
 
