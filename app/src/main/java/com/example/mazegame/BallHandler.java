@@ -1,5 +1,6 @@
 package com.example.mazegame;
 
+import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -79,4 +80,6 @@ public class BallHandler implements SensorEventListener {
     public float getxPos() {
         return xpos;
     }
+
+
 }
