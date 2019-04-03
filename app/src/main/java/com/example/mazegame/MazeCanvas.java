@@ -9,23 +9,34 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 
 public class MazeCanvas extends View {
 
     private BallHandler ballHandler;
-    private int wallLength, wallThickness;
-    private Paint wallPaint;
+    private int displayWidth, displayHeight, wallLength, wallThickness;
+    private Paint wallPaint,timerPaint;
     private Maze maze;
     private Bitmap ball;
+    private Chronometer timer;
 
 
     public MazeCanvas(Context context, int displayWidth, int displayHeight, Maze maze, BallHandler ballHandler) {
         super(context);
         wallThickness = 3;  //3 is testing value. Will need to be calculated later
         wallPaint = new Paint();
+        timerPaint = new Paint();
+        timerPaint.setColor(Color.WHITE);
+        timerPaint.setTextSize(50f);
+        timer = new Chronometer(context);
+        timer.setBase(SystemClock.currentThreadTimeMillis());
+        //timer.start();
         this.maze = maze;
+        this.displayWidth = displayWidth;
+        this.displayHeight = displayHeight;
         this.ballHandler = ballHandler;
         int horizontalWallLength = (int) displayWidth / maze.getWidth();
         int verticalWallLength = (int) displayHeight / maze.getHeight();
@@ -48,6 +59,9 @@ public class MazeCanvas extends View {
         super.onDraw(canvas);
         drawMaze(maze,canvas);
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
+        timer.getDisplay();
+        canvas.drawText(String.valueOf(SystemClock.elapsedRealtime()-timer.getBaseline()),50,50,timerPaint);
+        Log.e("test",timer.getText().toString());
         invalidate();
     }
 
@@ -89,5 +103,7 @@ public class MazeCanvas extends View {
         Rect rectangle = getRect(wall);
         return new Point(rectangle.right,rectangle.bottom);
     }
+
+
 }
 
