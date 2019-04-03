@@ -32,7 +32,6 @@ public class MazeCanvas extends View {
         timerPaint.setColor(Color.WHITE);
         timerPaint.setTextSize(50f);
         timer = new Chronometer(context);
-        timer.setBase(SystemClock.currentThreadTimeMillis());
         //timer.start();
         this.maze = maze;
         this.displayWidth = displayWidth;
@@ -60,7 +59,7 @@ public class MazeCanvas extends View {
         drawMaze(maze,canvas);
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         timer.getDisplay();
-        canvas.drawText(String.valueOf(SystemClock.elapsedRealtime()-timer.getBaseline()),50,50,timerPaint);
+        canvas.drawText(String.valueOf(SystemClock.elapsedRealtime()-timer.getBase()),50,50,timerPaint);
         Log.e("test",timer.getText().toString());
         invalidate();
     }
