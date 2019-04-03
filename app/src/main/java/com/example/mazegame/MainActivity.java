@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         toDifficulty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toScoresActivity();
+                toDifficultyActivity();
             }
         });
     }
