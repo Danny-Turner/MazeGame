@@ -14,7 +14,7 @@ public class Difficulties extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_difficulties);
+        //setContentView(R.layout.activity_difficulties);
         findIDs();
         toEasyButton();
         toMediumButton();
@@ -39,7 +39,8 @@ public class Difficulties extends Activity {
 
     private void toEasyActivity() {
         Intent forwardIntent = new Intent(Difficulties.this, MazeActivity.class);
-        startActivity(forwardIntent);
+        forwardIntent.putExtra("Maze","6x9maze");
+;       startActivity(forwardIntent);
     }
 
     private void toMediumButton() {
@@ -53,6 +54,7 @@ public class Difficulties extends Activity {
 
     private void toMediumActivity() {
         Intent forwardIntent = new Intent(Difficulties.this, MazeActivity.class);
+        forwardIntent.putExtra("Maze","8x12maze");
         startActivity(forwardIntent);
     }
 
@@ -67,9 +69,8 @@ public class Difficulties extends Activity {
 
     private void toHardActivity() {
         Intent forwardIntent = new Intent(Difficulties.this, MazeActivity.class);
+        forwardIntent.putExtra("Maze","10x15maze");
         startActivity(forwardIntent);
     }
-
-
 
 }

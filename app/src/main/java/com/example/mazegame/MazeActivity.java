@@ -21,23 +21,18 @@ public class MazeActivity extends Activity{
     private BallHandler ballhandler;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-
-
-
-        asjdbf;kjansd;fknwefasd.fn
-        sa.kjdfnaksdnf.asjf
-        sa.dkjfn
-         */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x, point.y);
         MazeReader test = new MazeReader();
+        Bundle extras = getIntent().getExtras();
         try {
-            test.loadMaze(getAssets().open("8x12maze"));
+
+            test.loadMaze(getAssets().open(extras.getString("Maze")));
         } catch (IOException e) {
             Log.e("MainActivity", "Could not read MazeData");
         }
@@ -53,11 +48,6 @@ public class MazeActivity extends Activity{
         //or may need to create it in the xml
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        //
-        //
-        //
-        //
-        
     }
 
     @Override
