@@ -14,11 +14,16 @@ public class BallHandler implements SensorEventListener {
     private float xaccel, yaccel = 0.0f;
     private float xMax, yMax;
     private String TAG = "BALLHANDLING";
+    private float radius;
+    private boolean hascollided;
 
 
     public BallHandler(float xMax, float yMax){
         this.xMax = xMax;
         this.yMax = yMax;
+        Log.d("MAX", "xMax: " + xMax + " yMax: " + yMax);
+        this.radius = 0.0f;
+        this.hascollided = false;
 
     }
 
@@ -28,7 +33,7 @@ public class BallHandler implements SensorEventListener {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             xaccel = -event.values[0];
             yaccel = event.values[1];
-            Log.d(TAG, "xaccel: "+xaccel+" yaccel: "+yaccel);
+           // Log.d(TAG, "xaccel: "+xaccel+" yaccel: "+yaccel);
             updatedBall();
 
         }
@@ -41,37 +46,37 @@ public class BallHandler implements SensorEventListener {
     }
 
     private void updatedBall() {
-        //TODO: when the ball hits a wall these numbers keep getting larger
-        float frameLength = 0.666f;
-        xvel += (xaccel * frameLength);
-        yvel += (yaccel * frameLength);
+
+            //TODO: when the ball hits a wall these numbers keep getting larger
+            float frameLength = 0.666f;
+            xvel += (xaccel * frameLength);
+            yvel += (yaccel * frameLength);
 
 
+            float xdisplace = (xvel / 2) * frameLength;
+            float ydisplace = (yvel / 2) * frameLength;
 
-        float xdisplace = (xvel/2) * frameLength;
-        float ydisplace = (yvel/2) * frameLength;
+            xpos += xdisplace;
+            ypos += ydisplace;
 
-        xpos += xdisplace;
-        ypos += ydisplace;
 
-        Log.d(TAG, "xpos: " + xpos + " ypos: " + ypos);
+            if (xpos > xMax - radius) {
+                xpos = xMax - radius;
+                xvel = 0;
+            } else if (xpos < 0) {
+                xpos = 0;
+                xvel = 0;
+            }
 
-        if (xpos > xMax) {
-            xpos = xMax;
-            xvel = 0;
-        } else if (xpos < 0) {
-            xpos = 0;
-            xvel = 0;
-        }
+            if (ypos > yMax - radius) {
+                ypos = yMax - radius;
+                yvel = 0;
+            } else if (ypos < 0) {
+                ypos = 0;
+                yvel = 0;
 
-        if (ypos > yMax) {
-            ypos = yMax;
-            yvel = 0;
-        } else if (ypos < 0) {
-            ypos = 0;
-            yvel = 0;
+            }
 
-        }
     }
 
     public float getyPos() {
@@ -82,4 +87,14 @@ public class BallHandler implements SensorEventListener {
     }
 
 
+    public float getRadius() {
+        return 50.0f;
+    }
+
+    public void setRadius(float radius){
+        this.radius = radius;
+    }
+    public void setHasCollided(boolean collided){
+        this.hascollided = hascollided;
+    }
 }

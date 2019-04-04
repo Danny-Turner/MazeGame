@@ -46,10 +46,12 @@ public class MazeCanvas extends View {
 
     private void createBall(){
         Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        final int width = wallLength/2;
-        final int height = wallLength/2;
+        int radius = wallLength/2;
+        float radius_float = radius;
+        Log.d("RADIUS", ""+radius_float);
+        ballHandler.setRadius(radius_float);
         //TODO: change ball width in ball handler
-        ball = Bitmap.createScaledBitmap(ballSrc, width, height, true);
+        ball = Bitmap.createScaledBitmap(ballSrc, radius, radius, true);
     }
 
 
@@ -60,7 +62,7 @@ public class MazeCanvas extends View {
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         timer.getDisplay();
         canvas.drawText(String.valueOf(SystemClock.elapsedRealtime()-timer.getBase()),50,50,timerPaint);
-        Log.e("test",timer.getText().toString());
+        //Log.e("test",timer.getText().toString());
         invalidate();
     }
 
@@ -69,8 +71,22 @@ public class MazeCanvas extends View {
         wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(wallThickness);
         for (int i = 0; i < maze.getWalls().size(); i++) {
-            canvas.drawRect(getRect(maze.getWalls().get(i)),wallPaint);
+
             //TODO: do collisions here
+            boolean col = CollisionHandler.hascollided(ballHandler, getRect(maze.getWalls().get(i)));
+            if(col){
+                Paint paint = new Paint();
+                paint.setColor(Color.GREEN);
+                canvas.drawRect(getRect(maze.getWalls().get(i)),paint);
+                Point point = getWallUpperLeft(maze.getWalls().get(i));
+               // Log.d("COLLIDED", "ball: " + ballHandler.getxPos() +", " + ballHandler.getyPos() + " wall: "
+               // + point.x + ", " + point.y);
+            }else{
+                canvas.drawRect(getRect(maze.getWalls().get(i)),wallPaint);
+            }
+
+
+           // Log.d("COLLISION", "hasCollided: "+col);
         }
     }
 

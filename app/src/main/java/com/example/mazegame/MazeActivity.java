@@ -33,6 +33,7 @@ public class MazeActivity extends Activity{
         sa.dkjfn
          */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //TODO: test bounds
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x, point.y);
         MazeReader test = new MazeReader();
