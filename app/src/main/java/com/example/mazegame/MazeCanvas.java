@@ -26,7 +26,6 @@ public class MazeCanvas extends View {
 
     public MazeCanvas(Context context, int displayWidth, int displayHeight, Maze maze, BallHandler ballHandler) {
         super(context);
-        wallThickness = 3;  //3 is testing value. Will need to be calculated later
         wallPaint = new Paint();
         timerPaint = new Paint();
         timerPaint.setColor(Color.WHITE);
@@ -40,6 +39,7 @@ public class MazeCanvas extends View {
         int horizontalWallLength = (int) displayWidth / maze.getWidth();
         int verticalWallLength = (int) displayHeight / maze.getHeight();
         wallLength = Math.min(horizontalWallLength,verticalWallLength);
+        wallThickness = (int) (wallLength /10);
         createBall();
 
     }
