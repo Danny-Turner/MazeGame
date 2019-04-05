@@ -21,6 +21,7 @@ public class BallHandler implements SensorEventListener {
     private Stack<Collided> collisions;
     private boolean canStack;
 
+
     public BallHandler(float xMax, float yMax){
         this.xMax = xMax;
         this.yMax = yMax;
@@ -64,10 +65,10 @@ public class BallHandler implements SensorEventListener {
             float xdisplace = (xvel / 2) * frameLength;
             float ydisplace = (yvel / 2) * frameLength;
 
-            xpos += xdisplace;
-            ypos += ydisplace;
 
 
+        xpos += xdisplace;
+        ypos += ydisplace;
 
             //Log.d(TAG, ""+collisions.isEmpty());
 
@@ -93,22 +94,33 @@ public class BallHandler implements SensorEventListener {
         if(!collisions.isEmpty()){
             while(!collisions.isEmpty()) {
                 Collided col = collisions.pop();
-                if (Math.abs(col.getDistancey()) < Math.abs(radius)) {
-                    Log.d(TAG, "distx: " + col.getDistancey());
-                    ypos = oldy;
+                if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
+
+                    xpos = oldy;
                     yvel = -yvel * .5f;
-                }
-                if (Math.abs(col.getDistancex()) < Math.abs(radius)) {
-                    Log.d(TAG, "disty: " + col.getDistancex());
+                }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
                     xpos = oldx;
                     xvel = -xvel * .5f;
                 }
+                else if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
+                    Log.d(TAG, "distx: " + col.getDistancey());
+                    ypos = oldy;
+                    yvel = -yvel * .5f;
+
+                }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
+                    Log.d(TAG, "disty: " + col.getDistancex());
+                    ypos = oldx;
+                    xvel = -xvel * .5f;
+
+                }
+
                 canStack = false;
             }
             canStack = true;
 
 
         }
+
 
 
     }
