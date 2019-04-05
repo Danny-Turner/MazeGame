@@ -143,7 +143,6 @@ public class MazeCanvas extends View {
          Use username_input to create the 'name' portion of the HighScore object
          Use timer.getTime() or something for the 'score' portion of the HighScore object
          call ScorePage.addNewScore() which takes the raw Long from the timer
-         How do I translate that to an ArrayList<HighScore>?
          How do I display that nicely for users?
 
          --Rader
