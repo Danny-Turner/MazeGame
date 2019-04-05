@@ -135,6 +135,7 @@ public class MazeCanvas extends View {
 
    private void endGame() {
        timer.stop();
+       /*
        PopupWindow popup = new PopupWindow();
        popup.setOnDismissListener(new PopupWindow.OnDismissListener(){
            @Override
@@ -142,7 +143,7 @@ public class MazeCanvas extends View {
            }
        });
        popup.showAtLocation(this, Gravity.CENTER, 50,50);
-
+        */
 
 
    }
