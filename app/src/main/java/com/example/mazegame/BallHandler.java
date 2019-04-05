@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class BallHandler implements SensorEventListener {
     private float xvel, yvel = 0.0f;
-    private float xpos, ypos = 300.0f;
+    private float xpos, ypos = 40.0f;
     private float xaccel, yaccel = 0.0f;
     private float xMax, yMax;
     private String TAG = "BALLHANDLING";
@@ -88,7 +88,7 @@ public class BallHandler implements SensorEventListener {
 
 
     public float getRadius() {
-        return 50.0f;
+        return radius;
     }
 
     public void setRadius(float radius){

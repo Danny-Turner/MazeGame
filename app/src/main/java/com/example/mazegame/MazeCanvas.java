@@ -46,12 +46,12 @@ public class MazeCanvas extends View {
 
     private void createBall(){
         Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        int radius = wallLength/2;
-        float radius_float = radius;
+        int length = wallLength/2;
+        float radius_float = length;
         Log.d("RADIUS", ""+radius_float);
-        ballHandler.setRadius(radius_float);
+        ballHandler.setRadius(radius_float/2);
         //TODO: change ball width in ball handler
-        ball = Bitmap.createScaledBitmap(ballSrc, radius, radius, true);
+        ball = Bitmap.createScaledBitmap(ballSrc, length, length, true);
     }
 
 
