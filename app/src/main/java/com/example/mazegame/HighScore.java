@@ -14,15 +14,12 @@ public class HighScore {
 
     public String getUsername(){return username;}
 
-    public HighScore createTestScore(){
+    public void createTestScore(){
         Random r = new Random();
         String testname = "test" + r.nextInt(101);
-        return new HighScore(testname,r.nextInt(101));
+        ScorePage.addNewScore( new HighScore(testname,r.nextInt(101)));
     }
 
-    public HighScore createNewScore(String scorename, long millitime){
-        return new HighScore(scorename, millitime/1000);
-    }
 
 
 
