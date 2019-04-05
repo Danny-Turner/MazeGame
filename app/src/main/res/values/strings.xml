@@ -8,4 +8,5 @@
     <string name="easy">EASY</string>
     <string name="medium">MEDIUM</string>
     <string name="hard">HARD</string>
+    <string name="add_score_test">Add Score Test</string>
 </resources>

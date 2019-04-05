@@ -9,7 +9,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class ScorePage extends Activity {
-    private ArrayList<Pair<String, String>> HighScores;
+    private ArrayList<HighScore> HighScores;
     private Button addScoreTestButton;
 
 
@@ -36,12 +36,10 @@ public class ScorePage extends Activity {
         });
     }
 
-    private void addScoreTest(){
-        String playername = "Rader";
-        String playerscore = "5:32";
-        HighScores.add(Pair.<String, String>create(playername, playerscore));
+    private void addScoreTest(){}
+
+    private void addNewScore(String name, Long millitime){
+        HighScores.add(new HighScore(name, millitime));
     }
-
-
 
 }
