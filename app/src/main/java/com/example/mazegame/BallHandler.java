@@ -12,13 +12,12 @@ import java.util.Stack;
 
 public class BallHandler implements SensorEventListener {
     private float xvel, yvel = 0.0f;
-    private float xpos, ypos = 40.0f;
+    private float xpos= 50.0f;
+    private float ypos = 50.0f;
     private float xaccel, yaccel = 0.0f;
     private float xMax, yMax;
     private String TAG = "BALLHANDLING";
     private float radius;
-    private boolean hascollided;
-    //private ArrayList<Collided> collisions;
     private Stack<Collided> collisions;
 
     public BallHandler(float xMax, float yMax){
@@ -26,7 +25,6 @@ public class BallHandler implements SensorEventListener {
         this.yMax = yMax;
         Log.d("MAX", "xMax: " + xMax + " yMax: " + yMax);
         this.radius = 0.0f;
-        this.hascollided = false;
         this.collisions = new Stack<>();
 
     }
@@ -50,10 +48,12 @@ public class BallHandler implements SensorEventListener {
     }
 
     private void updatedBall() {
-            float oldx = xpos;
-            float oldy = ypos;
+        float oldx = xpos;
+        float oldy = ypos;
 
-           
+
+
+
             float frameLength = 0.666f;
             xvel += (xaccel * frameLength);
             yvel += (yaccel * frameLength);
@@ -66,19 +66,9 @@ public class BallHandler implements SensorEventListener {
             ypos += ydisplace;
 
 
-            if(!collisions.isEmpty()){
-                while(!collisions.empty()){
-                    Collided col = collisions.pop();
-                    if(col.getDistancex() <= 0){
-                        xpos = oldx;
-                        xvel = 0;
-                    }
-                    if(col.getDistancey() <= 0){
-                        ypos = oldy;
-                        yvel = 0;
-                    }
-                }
-            }
+
+            //Log.d(TAG, ""+collisions.isEmpty());
+
 
 
             if (xpos > xMax - radius) {
@@ -93,10 +83,26 @@ public class BallHandler implements SensorEventListener {
                 ypos = yMax - radius;
                 yvel = 0;
             } else if (ypos < 0) {
+
                 ypos = 0;
                 yvel = 0;
 
             }
+        if(!collisions.isEmpty()){
+
+            while(!collisions.empty()){
+                Collided col = collisions.pop();
+                if(col.getDistancex() == 0){
+                    
+                    yvel = 0;
+                }
+                if(col.getDistancey() == 0){
+
+                    xvel = 0;
+                }
+            }
+        }
+
 
     }
 

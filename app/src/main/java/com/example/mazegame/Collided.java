@@ -10,6 +10,9 @@ public class Collided {
         this.distancey = distancey;
         this.nearestx = nearestx;
         this.nearesty = nearesty;
+
+
+
     }
 
     public boolean isHasCollided() {

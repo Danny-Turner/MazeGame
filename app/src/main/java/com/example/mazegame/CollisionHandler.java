@@ -7,7 +7,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 
-public class CollisionHandler {
+public class CollisionHandler{
+    private static final String TAG = "COLLISIONS";
 
     public static Collided hascollided(BallHandler ball, Rect rectangle){
         Point rectpos = getWallUpperLeft(rectangle);
@@ -20,7 +21,7 @@ public class CollisionHandler {
 
 
         if((distancex * distancex + distancey * distancey) < (ball.getRadius() * ball.getRadius())){
-
+            Log.d(TAG, "distx: "+distancex +" disty: "+ distancey);
             return new Collided(true, distancex, distancey, nearestx, nearesty);
         }else{
             return new Collided(false, distancex, distancey, nearestx, nearesty);
