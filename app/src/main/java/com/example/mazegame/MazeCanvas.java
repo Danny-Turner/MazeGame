@@ -136,16 +136,12 @@ public class MazeCanvas extends View {
    }
 
    private void endGame() {
-       timer.stop();
+        timer.stop();
 
        /*
-         https://www.101apps.co.za/articles/capturing-user-input-with-android-s-textfields.html
-         Use username_input to create the 'name' portion of the HighScore object
-         Use timer.getTime() or something for the 'score' portion of the HighScore object
-         call ScorePage.addNewScore() which takes the raw Long from the timer
-         How do I display that nicely for users?
-
-         --Rader
+         Utilize a dialog box to retrieve a username from the user
+         Use timer.getElapsedTime() for the 'score' portion of the HighScore object
+         call ScorePage.addNewScore() which takes the String username and the raw Long from the timer
        */
 
        /*

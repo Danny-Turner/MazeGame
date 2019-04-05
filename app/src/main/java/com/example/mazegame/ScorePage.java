@@ -42,4 +42,7 @@ public class ScorePage extends Activity {
         HighScores.add(new HighScore(name, millitime));
     }
 
+    private void sortScores(){
+
+    }
 }
