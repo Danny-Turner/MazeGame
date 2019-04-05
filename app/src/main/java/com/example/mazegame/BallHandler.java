@@ -103,7 +103,9 @@ public class BallHandler implements SensorEventListener {
                     xpos = oldx;
                     xvel = -xvel * .5f;
                 }
+                canStack = false;
             }
+            canStack = true;
 
 
         }
@@ -117,6 +119,8 @@ public class BallHandler implements SensorEventListener {
     public float getxPos() {
         return xpos;
     }
+
+    public boolean canStack(){return this.canStack;}
 
 
     public float getRadius() {

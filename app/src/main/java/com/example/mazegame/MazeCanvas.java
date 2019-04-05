@@ -101,8 +101,10 @@ public class MazeCanvas extends View {
            // Log.d("COLLISION", "hasCollided: "+col);
         }
         //Log.d("STACK: ", ""+ballHandler.isCanStack());
+        if(ballHandler.canStack()){
+            ballHandler.addCollisions(collideds);
+        }
 
-        ballHandler.addCollisions(collideds);
 
 
 
