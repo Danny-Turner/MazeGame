@@ -11,8 +11,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.PopupWindow;
 
 public class MazeCanvas extends View {
 
@@ -22,7 +24,7 @@ public class MazeCanvas extends View {
     private Maze maze;
     private Bitmap ball;
     private Timer timer;
-
+    private boolean gameOver;
 
     public MazeCanvas(Context context, int displayWidth, int displayHeight, Maze maze, BallHandler ballHandler) {
         super(context);
@@ -41,6 +43,7 @@ public class MazeCanvas extends View {
         wallLength = Math.min(horizontalWallLength,verticalWallLength);
         wallThickness = (int) (wallLength /10);
         createBall();
+        gameOver = false;
 
     }
 
@@ -61,8 +64,11 @@ public class MazeCanvas extends View {
         drawMaze(maze,canvas);
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         canvas.drawText(timer.displayTime(),50,50,timerPaint);
-        //Log.e("test",timer.getText().toString());
-        invalidate();
+        checkGameOver();
+        if (!gameOver) {
+            invalidate();
+        } else {endGame();}
+
     }
 
 
@@ -118,6 +124,25 @@ public class MazeCanvas extends View {
         return new Point(rectangle.right,rectangle.bottom);
     }
 
+   private void checkGameOver() {
+       if (ballHandler.getyPos() > maze.getHeight()* wallLength) {
+           gameOver = true;
+       }
+   }
+
+   private void endGame() {
+       timer.stop();
+       PopupWindow popup = new PopupWindow();
+       popup.setOnDismissListener(new PopupWindow.OnDismissListener(){
+           @Override
+           public void onDismiss() {
+           }
+       });
+       popup.showAtLocation(this, Gravity.CENTER, 50,50);
+
+
+
+   }
 
 }
 

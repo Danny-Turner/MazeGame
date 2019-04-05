@@ -41,13 +41,9 @@ public class MazeActivity extends Activity{
         mazeCanvas = new MazeCanvas(this, point.x, point.y, hardMaze, ballhandler);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
-
-
-
         //need to create a canvas, the object should be the canvas
         //try to create the maze in the canvas at first
         //or may need to create it in the xml
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     }
 
