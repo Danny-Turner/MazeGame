@@ -21,7 +21,7 @@ public class CollisionHandler{
 
 
         if((distancex * distancex + distancey * distancey) <= (radius * radius)){
-            Log.d(TAG, "distx: "+distancex +" disty: "+ distancey);
+           // Log.d(TAG, "distx: "+distancex +" disty: "+ distancey);
             return new Collided(true, distancex, distancey, nearestx, nearesty);
         }else{
             return new Collided(false, distancex, distancey, nearestx, nearesty);

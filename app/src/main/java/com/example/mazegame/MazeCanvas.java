@@ -100,7 +100,12 @@ public class MazeCanvas extends View {
 
            // Log.d("COLLISION", "hasCollided: "+col);
         }
+        //Log.d("STACK: ", ""+ballHandler.isCanStack());
+
         ballHandler.addCollisions(collideds);
+
+
+
     }
 
     private Rect getRect(MazeWall wall) {

@@ -13,12 +13,13 @@ import java.util.Stack;
 public class BallHandler implements SensorEventListener {
     private float xvel, yvel = 0.0f;
     private float xpos= 50.0f;
-    private float ypos = 50.0f;
+    private float ypos = 30.0f;
     private float xaccel, yaccel = 0.0f;
     private float xMax, yMax;
     private String TAG = "BALLHANDLING";
     private float radius;
     private Stack<Collided> collisions;
+    private boolean canStack;
 
     public BallHandler(float xMax, float yMax){
         this.xMax = xMax;
@@ -26,6 +27,7 @@ public class BallHandler implements SensorEventListener {
         Log.d("MAX", "xMax: " + xMax + " yMax: " + yMax);
         this.radius = 0.0f;
         this.collisions = new Stack<>();
+        this.canStack = true;
 
     }
 
@@ -89,19 +91,21 @@ public class BallHandler implements SensorEventListener {
 
             }
         if(!collisions.isEmpty()){
-
-            while(!collisions.empty()){
+            while(!collisions.isEmpty()) {
                 Collided col = collisions.pop();
-                if(col.getDistancey() < Math.abs(radius)){
-                    xpos = oldx;
-                    yvel = 0;
-                }
-                if(col.getDistancex() < Math.abs(radius)){
+                if (Math.abs(col.getDistancey()) < Math.abs(radius)) {
+                    Log.d(TAG, "distx: " + col.getDistancey());
                     ypos = oldy;
-
-                    xvel = 0;
+                    yvel = -yvel * .5f;
+                }
+                if (Math.abs(col.getDistancex()) < Math.abs(radius)) {
+                    Log.d(TAG, "disty: " + col.getDistancex());
+                    xpos = oldx;
+                    xvel = -xvel * .5f;
                 }
             }
+
+
         }
 
 
