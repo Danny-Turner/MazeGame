@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class CollisionHandler {
 
-    public static boolean hascollided(BallHandler ball, Rect rectangle){
+    public static Collided hascollided(BallHandler ball, Rect rectangle){
         Point rectpos = getWallUpperLeft(rectangle);
         float centerx = ball.getxPos() + ball.getRadius();
         float centery = ball.getyPos() + ball.getRadius();
@@ -18,7 +18,14 @@ public class CollisionHandler {
         float distancex = centerx - nearestx;
         float distancey = centery - nearesty;
 
-        return (distancex * distancex + distancey * distancey) < (ball.getRadius() * ball.getRadius());
+
+        if((distancex * distancex + distancey * distancey) < (ball.getRadius() * ball.getRadius())){
+
+            return new Collided(true, distancex, distancey, nearestx, nearesty);
+        }else{
+            return new Collided(false, distancex, distancey, nearestx, nearesty);
+        }
+
     }
 
     private static Point getWallUpperLeft(Rect rectangle) {

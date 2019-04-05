@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class MazeCanvas extends View {
 
     private BallHandler ballHandler;
@@ -70,15 +73,14 @@ public class MazeCanvas extends View {
     private void drawMaze(Maze m, Canvas canvas) {
         wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(wallThickness);
+        Stack<Collided> collideds = new Stack<>();
         for (int i = 0; i < maze.getWalls().size(); i++) {
-
-            //TODO: do collisions here
-            boolean col = CollisionHandler.hascollided(ballHandler, getRect(maze.getWalls().get(i)));
-            if(col){
+            Collided col = CollisionHandler.hascollided(ballHandler, getRect(maze.getWalls().get(i)));
+            if(col.isHasCollided()){
                 Paint paint = new Paint();
                 paint.setColor(Color.GREEN);
                 canvas.drawRect(getRect(maze.getWalls().get(i)),paint);
-                Point point = getWallUpperLeft(maze.getWalls().get(i));
+                collideds.push(col);
                // Log.d("COLLIDED", "ball: " + ballHandler.getxPos() +", " + ballHandler.getyPos() + " wall: "
                // + point.x + ", " + point.y);
             }else{
@@ -88,6 +90,7 @@ public class MazeCanvas extends View {
 
            // Log.d("COLLISION", "hasCollided: "+col);
         }
+        ballHandler.addCollisions(collideds);
     }
 
     private Rect getRect(MazeWall wall) {

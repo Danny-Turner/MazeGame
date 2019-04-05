@@ -6,6 +6,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Stack;
 
 
 public class BallHandler implements SensorEventListener {
@@ -16,7 +18,8 @@ public class BallHandler implements SensorEventListener {
     private String TAG = "BALLHANDLING";
     private float radius;
     private boolean hascollided;
-
+    //private ArrayList<Collided> collisions;
+    private Stack<Collided> collisions;
 
     public BallHandler(float xMax, float yMax){
         this.xMax = xMax;
@@ -24,6 +27,7 @@ public class BallHandler implements SensorEventListener {
         Log.d("MAX", "xMax: " + xMax + " yMax: " + yMax);
         this.radius = 0.0f;
         this.hascollided = false;
+        this.collisions = new Stack<>();
 
     }
 
@@ -46,8 +50,10 @@ public class BallHandler implements SensorEventListener {
     }
 
     private void updatedBall() {
+            float oldx = xpos;
+            float oldy = ypos;
 
-            //TODO: when the ball hits a wall these numbers keep getting larger
+           
             float frameLength = 0.666f;
             xvel += (xaccel * frameLength);
             yvel += (yaccel * frameLength);
@@ -58,6 +64,21 @@ public class BallHandler implements SensorEventListener {
 
             xpos += xdisplace;
             ypos += ydisplace;
+
+
+            if(!collisions.isEmpty()){
+                while(!collisions.empty()){
+                    Collided col = collisions.pop();
+                    if(col.getDistancex() <= 0){
+                        xpos = oldx;
+                        xvel = 0;
+                    }
+                    if(col.getDistancey() <= 0){
+                        ypos = oldy;
+                        yvel = 0;
+                    }
+                }
+            }
 
 
             if (xpos > xMax - radius) {
@@ -94,7 +115,9 @@ public class BallHandler implements SensorEventListener {
     public void setRadius(float radius){
         this.radius = radius;
     }
-    public void setHasCollided(boolean collided){
-        this.hascollided = hascollided;
+
+
+    public void addCollisions(Stack<Collided> collisions) {
+        this.collisions = collisions;
     }
 }
