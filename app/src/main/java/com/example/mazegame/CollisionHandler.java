@@ -10,17 +10,17 @@ import android.util.Log;
 public class CollisionHandler{
     private static final String TAG = "COLLISIONS";
 
-    public static Collided hascollided(BallHandler ball, Rect rectangle){
+    public static Collided hascollided(float ballx, float bally, float radius, Rect rectangle){
         Point rectpos = getWallUpperLeft(rectangle);
-        float centerx = ball.getxPos() + ball.getRadius();
-        float centery = ball.getyPos() + ball.getRadius();
+        float centerx = ballx + radius;
+        float centery = bally + radius;
         float nearestx = Math.max(rectpos.x, Math.min(centerx, rectpos.x + rectangle.width()));
         float nearesty = Math.max(rectpos.y, Math.min(centery, rectpos.y + rectangle.height()));
         float distancex = centerx - nearestx;
         float distancey = centery - nearesty;
 
 
-        if((distancex * distancex + distancey * distancey) < (ball.getRadius() * ball.getRadius())){
+        if((distancex * distancex + distancey * distancey) <= (radius * radius)){
             Log.d(TAG, "distx: "+distancex +" disty: "+ distancey);
             return new Collided(true, distancex, distancey, nearestx, nearesty);
         }else{

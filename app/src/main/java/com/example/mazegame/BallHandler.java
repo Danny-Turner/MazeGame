@@ -92,11 +92,12 @@ public class BallHandler implements SensorEventListener {
 
             while(!collisions.empty()){
                 Collided col = collisions.pop();
-                if(col.getDistancex() == 0){
-                    
+                if(col.getDistancey() < Math.abs(radius)){
+                    xpos = oldx;
                     yvel = 0;
                 }
-                if(col.getDistancey() == 0){
+                if(col.getDistancex() < Math.abs(radius)){
+                    ypos = oldy;
 
                     xvel = 0;
                 }

@@ -67,6 +67,7 @@ public class MazeCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawMaze(maze,canvas);
+
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         canvas.drawText(timer.displayTime(),50,50,timerPaint);
         checkGameOver();
@@ -81,8 +82,10 @@ public class MazeCanvas extends View {
         wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(wallThickness);
         Stack<Collided> collideds = new Stack<>();
+        float ballx = ballHandler.getxPos();
+        float bally = ballHandler.getyPos();
         for (int i = 0; i < maze.getWalls().size(); i++) {
-            Collided col = CollisionHandler.hascollided(ballHandler, getRect(maze.getWalls().get(i)));
+            Collided col = CollisionHandler.hascollided(ballx, bally, wallLength/4, getRect(maze.getWalls().get(i)));
             if(col.isHasCollided()){
                 Paint paint = new Paint();
                 paint.setColor(Color.GREEN);
