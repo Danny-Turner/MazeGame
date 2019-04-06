@@ -1,6 +1,8 @@
 package com.example.mazegame;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,10 +12,14 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -30,9 +36,11 @@ public class MazeCanvas extends View {
     private Timer timer;
     private boolean gameOver;
     private TextView username_input;
+    private ArrayList<SendEndGame> listeners;
 
     public MazeCanvas(Context context, int displayWidth, int displayHeight, Maze maze, BallHandler ballHandler) {
         super(context);
+        listeners = new ArrayList<>();
         wallPaint = new Paint();
         timerPaint = new Paint();
         timerPaint.setColor(Color.WHITE);
@@ -49,6 +57,7 @@ public class MazeCanvas extends View {
         wallThickness = (int) (wallLength /10);
         createBall();
         gameOver = false;
+
 
     }
 
@@ -124,6 +133,13 @@ public class MazeCanvas extends View {
 
    private void endGame() {
         timer.stop();
+        for(SendEndGame listener: listeners){
+            listener.sendTimer(timer, getContext());
+        }
+
+
+
+
 
        /*
          Utilize a dialog box to retrieve a username from the user
@@ -143,6 +159,11 @@ public class MazeCanvas extends View {
 
 
    }
+
+   public void addAsEndGameListener(SendEndGame listener){
+        this.listeners.add(listener);
+   }
+
 
 }
 

@@ -1,19 +1,34 @@
 package com.example.mazegame;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
-public class MazeActivity extends Activity{
+import static android.content.ContentValues.TAG;
+
+public class MazeActivity extends Activity implements SendEndGame{
 
     private MazeCanvas mazeCanvas;
     private Maze hardMaze;
@@ -45,6 +60,7 @@ public class MazeActivity extends Activity{
         //try to create the maze in the canvas at first
         //or may need to create it in the xml
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mazeCanvas.addAsEndGameListener(this);
     }
 
     @Override
@@ -69,5 +85,13 @@ public class MazeActivity extends Activity{
         display.getSize(point);
         return point;
     }
+
+    @Override
+    public void sendTimer(final Timer timer, Context context) {
+        Intent forwardIntent = new Intent(MazeActivity.this, MainActivity.class);
+        startActivity(forwardIntent);
+
+    }
+
 
 }

@@ -69,30 +69,23 @@ public class BallHandler implements SensorEventListener {
 
             //Log.d(TAG, ""+collisions.isEmpty());
 
+        checkOutofBounds();
+        calcuateWallCollisions(oldx, oldy);
 
 
-            if (xpos > xMax - radius) {
-                xpos = xMax - radius;
-                xvel = 0;
-            } else if (xpos < 0) {
-                xpos = 0;
-                xvel = 0;
-            }
 
-            if (ypos > yMax - radius) {
-                ypos = yMax - radius;
-                yvel = 0;
-            } else if (ypos < 0) {
 
-                ypos = 0;
-                yvel = 0;
 
-            }
 
-         for (int i = 0; i < maze.getMaze().getWalls().size(); i++) {
-             Collided col = CollisionHandler.hascollided(xpos, ypos, radius, maze.getRect(maze.getMaze().getWalls().get(i)));
-             if(col.isHasCollided()){
-                 if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
+
+
+    }
+
+    public void calcuateWallCollisions(float oldx, float oldy){
+        for (int i = 0; i < maze.getMaze().getWalls().size(); i++) {
+            Collided col = CollisionHandler.hascollided(xpos, ypos, radius, maze.getRect(maze.getMaze().getWalls().get(i)));
+            if(col.isHasCollided()){
+                if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
                     ypos = oldy;
                     yvel = 0;
                 }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
@@ -107,13 +100,28 @@ public class BallHandler implements SensorEventListener {
                     xvel = 0;
 
                 }
-             }
-         }
+            }
+        }
+    }
 
+    public void checkOutofBounds(){
+        if (xpos > xMax - radius) {
+            xpos = xMax - radius;
+            xvel = 0;
+        } else if (xpos < 0) {
+            xpos = 0;
+            xvel = 0;
+        }
 
+        if (ypos > yMax - radius) {
+            ypos = yMax - radius;
+            yvel = 0;
+        } else if (ypos < 0) {
 
+            ypos = 0;
+            yvel = 0;
 
-
+        }
     }
 
     public float getyPos() {
