@@ -1,4 +1,4 @@
-package com.example.mazegame;
+package com.example.mazegame.collisions;
 
 public class Collided {
     private boolean hasCollided;

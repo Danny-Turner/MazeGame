@@ -1,13 +1,12 @@
 package com.example.mazegame;
 
-import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import com.example.mazegame.collisions.Collided;
+import com.example.mazegame.collisions.CollisionHandler;
 
 
 public class BallHandler implements SensorEventListener {

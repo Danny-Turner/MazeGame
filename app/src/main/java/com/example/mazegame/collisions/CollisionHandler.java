@@ -1,11 +1,7 @@
-package com.example.mazegame;
+package com.example.mazegame.collisions;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class CollisionHandler{
     private static final String TAG = "COLLISIONS";
