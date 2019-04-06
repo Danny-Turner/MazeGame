@@ -56,10 +56,8 @@ public class MazeCanvas extends View {
         Bitmap ballSrc = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         int length = wallLength/2;
         float radius_float = length;
-        Log.d("RADIUS", ""+radius_float);
         ballHandler.setRadius(radius_float/2);
         ballHandler.setMaze(this);
-        //TODO: change ball width in ball handler
         ball = Bitmap.createScaledBitmap(ballSrc, length, length, true);
     }
 
@@ -82,33 +80,9 @@ public class MazeCanvas extends View {
     private void drawMaze(Maze m, Canvas canvas) {
         wallPaint.setColor(Color.WHITE);
         wallPaint.setStrokeWidth(wallThickness);
-        Stack<Collided> collideds = new Stack<>();
-        float ballx = ballHandler.getxPos();
-        float bally = ballHandler.getyPos();
         for (int i = 0; i < maze.getWalls().size(); i++) {
-            Collided col = CollisionHandler.hascollided(ballx, bally, wallLength/4, getRect(maze.getWalls().get(i)));
-            if(col.isHasCollided()){
-                Paint paint = new Paint();
-                paint.setColor(Color.GREEN);
-                canvas.drawRect(getRect(maze.getWalls().get(i)),paint);
-                collideds.push(col);
-               // Log.d("COLLIDED", "ball: " + ballHandler.getxPos() +", " + ballHandler.getyPos() + " wall: "
-               // + point.x + ", " + point.y);
-            }else{
-                canvas.drawRect(getRect(maze.getWalls().get(i)),wallPaint);
-            }
-
-
-           // Log.d("COLLISION", "hasCollided: "+col);
+            canvas.drawRect(getRect(maze.getWalls().get(i)),wallPaint);
         }
-        //Log.d("STACK: ", ""+ballHandler.isCanStack());
-        if(ballHandler.canStack()){
-            ballHandler.addCollisions(collideds);
-        }
-
-
-
-
     }
 
     public Maze getMaze(){return this.maze;}
