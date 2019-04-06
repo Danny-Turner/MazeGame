@@ -58,6 +58,7 @@ public class MazeCanvas extends View {
         float radius_float = length;
         Log.d("RADIUS", ""+radius_float);
         ballHandler.setRadius(radius_float/2);
+        ballHandler.setMaze(this);
         //TODO: change ball width in ball handler
         ball = Bitmap.createScaledBitmap(ballSrc, length, length, true);
     }
@@ -110,7 +111,9 @@ public class MazeCanvas extends View {
 
     }
 
-    private Rect getRect(MazeWall wall) {
+    public Maze getMaze(){return this.maze;}
+
+    public Rect getRect(MazeWall wall) {
         if (wall.getDirection() == Orientation.horizontal) {
             return new Rect(wall.getColumn()*wallLength,wall.getRow()*wallLength,
                     (wall.getColumn()+1)*wallLength, wall.getRow()*wallLength+wallThickness);

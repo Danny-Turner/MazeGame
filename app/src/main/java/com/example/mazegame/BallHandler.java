@@ -20,6 +20,7 @@ public class BallHandler implements SensorEventListener {
     private float radius;
     private Stack<Collided> collisions;
     private boolean canStack;
+    private MazeCanvas maze;
 
 
     public BallHandler(float xMax, float yMax){
@@ -67,8 +68,8 @@ public class BallHandler implements SensorEventListener {
 
 
 
-        xpos += xdisplace;
-        ypos += ydisplace;
+            xpos += xdisplace;
+            ypos += ydisplace;
 
             //Log.d(TAG, ""+collisions.isEmpty());
 
@@ -91,35 +92,54 @@ public class BallHandler implements SensorEventListener {
                 yvel = 0;
 
             }
-        if(!collisions.isEmpty()){
-            while(!collisions.isEmpty()) {
-                Collided col = collisions.pop();
-                if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
 
-                    xpos = oldy;
-                    yvel = -yvel * .5f;
-                }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
-                    xpos = oldx;
-                    xvel = -xvel * .5f;
-                }
-                else if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
+         for (int i = 0; i < maze.getMaze().getWalls().size(); i++) {
+             Collided col = CollisionHandler.hascollided(xpos, ypos, radius, maze.getRect(maze.getMaze().getWalls().get(i)));
+             if(col.isHasCollided()){
+                 if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
                     Log.d(TAG, "distx: " + col.getDistancey());
                     ypos = oldy;
-                    yvel = -yvel * .5f;
+                    yvel = 0;
 
                 }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
                     Log.d(TAG, "disty: " + col.getDistancex());
-                    ypos = oldx;
-                    xvel = -xvel * .5f;
+                    xpos = oldx;
+                    xvel = 0;
 
                 }
-
-                canStack = false;
-            }
-            canStack = true;
+             }
+         }
 
 
-        }
+//        if(!collisions.isEmpty()){
+//            while(!collisions.isEmpty()) {
+//                Collided col = collisions.pop();
+//                if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
+//
+//                    xpos = oldy;
+//                    yvel = -yvel * .5f;
+//                }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
+//                    xpos = oldx;
+//                    xvel = -xvel * .5f;
+//                }
+//                else if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
+//                    Log.d(TAG, "distx: " + col.getDistancey());
+//                    ypos = oldy;
+//                    yvel = -yvel * .5f;
+//
+//                }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
+//                    Log.d(TAG, "disty: " + col.getDistancex());
+//                    ypos = oldx;
+//                    xvel = -xvel * .5f;
+//
+//                }
+//
+//                canStack = false;
+//            }
+//            canStack = true;
+//
+//
+//        }
 
 
 
@@ -133,6 +153,8 @@ public class BallHandler implements SensorEventListener {
     }
 
     public boolean canStack(){return this.canStack;}
+
+    public void setMaze(MazeCanvas maze){this.maze = maze;}
 
 
     public float getRadius() {
