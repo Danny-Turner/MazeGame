@@ -87,7 +87,7 @@ public class MazeActivity extends Activity implements SendEndGame{
 
     private Maze getMaze(String selected) {
         if (selected.equals("random")) {
-            RandomMaze random = new RandomMaze(12,18);
+            RandomMaze random = new RandomMaze(10,15);
             random.generateRandomPaths();
             random.createWalls();
             return random;
