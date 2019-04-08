@@ -6,9 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Difficulties extends Activity {
-    private Button Easy;
-    private Button Medium;
-    private Button Hard;
+    private Button Easy, Medium, Hard, Random;
 
 
     @Override
@@ -19,6 +17,7 @@ public class Difficulties extends Activity {
         toEasyButton();
         toMediumButton();
         toHardButton();
+        toRandomButton();
     }
 
     public void findIDs(){
@@ -26,6 +25,7 @@ public class Difficulties extends Activity {
         Easy = findViewById(R.id.toEasy);
         Medium = findViewById(R.id.toMedium);
         Hard = findViewById(R.id.toHard);
+        Random = findViewById(R.id.toRandom);
     }
 
     private void toEasyButton() {
@@ -73,4 +73,19 @@ public class Difficulties extends Activity {
         startActivity(forwardIntent);
     }
 
+    private void toRandomButton() {
+        Random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toRandomActivity();
+            }
+        });
+    }
+
+    private void toRandomActivity() {
+        Intent forwardIntent = new Intent(Difficulties.this, MazeActivity.class);
+        forwardIntent.putExtra("Maze", "random");
+        ;
+        startActivity(forwardIntent);
+    }
 }

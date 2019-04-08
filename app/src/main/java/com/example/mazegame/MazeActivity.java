@@ -31,11 +31,9 @@ import static android.content.ContentValues.TAG;
 public class MazeActivity extends Activity implements SendEndGame{
 
     private MazeCanvas mazeCanvas;
-    private Maze hardMaze;
+    private Maze maze;
     private SensorManager sensorManager;
     private BallHandler ballhandler;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +42,10 @@ public class MazeActivity extends Activity implements SendEndGame{
         //TODO: test bounds
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x, point.y);
-        MazeReader test = new MazeReader();
         Bundle extras = getIntent().getExtras();
-        try {
-            test.loadMaze(getAssets().open(extras.getString("Maze")));
-        } catch (IOException e) {
-            Log.e("MainActivity", "Could not read MazeData");
-        }
-        hardMaze = test.getMaze();
-        mazeCanvas = new MazeCanvas(this, point.x, point.y, hardMaze, ballhandler);
+        maze = getMaze(extras.getString("Maze").toString());
+        //mazeCanvas = new MazeCanvas(this, point.x, point.y, hardMaze, ballhandler);
+        mazeCanvas = new MazeCanvas(this, point.x, point.y, maze, ballhandler);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
         //need to create a canvas, the object should be the canvas
@@ -92,5 +85,24 @@ public class MazeActivity extends Activity implements SendEndGame{
 
     }
 
+    private Maze getMaze(String selected) {
+        if (selected.equals("random")) {
+            RandomMaze random = new RandomMaze(12,18);
+            random.generateRandomPaths();
+            random.createWalls();
+            return random;
+        } else {
+            Maze prebuiltMaze;
+            MazeReader test = new MazeReader();
+
+            try {
+                test.loadMaze(getAssets().open(selected));
+            } catch (IOException e) {
+                Log.e("MainActivity", "Could not read MazeData");
+            }
+            prebuiltMaze = test.getMaze();
+            return prebuiltMaze;
+        }
+    }
 
 }

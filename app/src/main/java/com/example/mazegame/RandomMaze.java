@@ -1,6 +1,8 @@
 package com.example.mazegame;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -20,9 +22,10 @@ public class RandomMaze extends Maze{
         this.height = height;
         walls = new ArrayList<>();
         mazeStack  = new Stack<RandomMazeCellData> ();
+        mazeGrid = new RandomMazeCellData[height][width];
         for (int i = 0; i< width; i++){
             for (int j = 0; j< height; j++) {
-                mazeGrid[j][i] = new RandomMazeCellData();
+                mazeGrid[j][i] = new RandomMazeCellData(j,i);
             }
         }
     }
@@ -62,36 +65,42 @@ public class RandomMaze extends Maze{
     }
 
 
-      private void generateRandomPaths(){
+      public void generateRandomPaths(){
         int count = 1;
         int row = 0;
         int column = 0;
         mazeGrid[0][0].setVisited(true);
         mazeStack.push(mazeGrid[0][0]);
-        while (count <= width*height) {
+        while (count < width*height) {
             if (numberUnvisitedNeighbors(row,column) >0) {
                 count +=1;
-                int index = (int)Math.random()*unvisitedNeighbors(row,column).size();
+                int index = (int)(Math.random()*unvisitedNeighbors(row,column).size());
                 Direction heading = unvisitedNeighbors(row,column).get(index);
                 if (heading.equals(Direction.UP)) {
                     removeUp(mazeGrid[row][column]);
                     row -=1;
+                    mazeGrid[row][column].setVisited(true);
                     mazeStack.push(mazeGrid[row][column]);
                 } else if (heading.equals(Direction.DOWN)) {
                     row +=1;
                     removeUp(mazeGrid[row][column]);
+                    mazeGrid[row][column].setVisited(true);
                     mazeStack.push(mazeGrid[row][column]);
                 } else if (heading.equals(Direction.LEFT)) {
                     removeLeft(mazeGrid[row][column]);
                     column -=1;
+                    mazeGrid[row][column].setVisited(true);
                     mazeStack.push(mazeGrid[row][column]);
                 } else {
                     column +=1;
                     removeLeft(mazeGrid[row][column]);
+                    mazeGrid[row][column].setVisited(true);
                     mazeStack.push(mazeGrid[row][column]);
                 }
             } else {
-                mazeStack.pop();
+                RandomMazeCellData current = mazeStack.pop();
+                row = current.getRow();
+                column = current.getColumn();
             }
         }
 
@@ -116,16 +125,20 @@ public class RandomMaze extends Maze{
 
 
 
-    private void createWalls(){
+    public void createWalls() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if ((mazeGrid[j][i].getValue()) == 1 || (mazeGrid[j][i].getValue()) == 3) {
+                if ((mazeGrid[i][j].getValue()) == 1 || (mazeGrid[i][j].getValue()) == 3) {
                     addWall(new MazeWall(i, j, Orientation.vertical));
                 }
-                if ((mazeGrid[j][i]).getValue() == 2 || (mazeGrid[j][i].getValue()) == 3) {
-                    addWall(new MazeWall(i,j, Orientation.horizontal));
+                if ((mazeGrid[i][j]).getValue() == 2 || (mazeGrid[i][j].getValue()) == 3) {
+                    addWall(new MazeWall(i, j, Orientation.horizontal));
                 }
             }
+            addWall(new MazeWall(i, width, Orientation.vertical));
+        }
+        for (int k = 0; k < width - 1; k++) {
+            addWall(new MazeWall(height, k, Orientation.horizontal));
         }
     }
 
