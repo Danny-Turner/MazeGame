@@ -75,7 +75,6 @@ public class MazeCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawMaze(maze,canvas);
-
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
         canvas.drawText(timer.displayTime(),50,50,timerPaint);
         checkGameOver();
@@ -105,25 +104,6 @@ public class MazeCanvas extends View {
                 wall.getColumn()*wallLength+wallThickness, (wall.getRow()+1)*wallLength);
     }
 
-    private Point getWallUpperLeft(MazeWall wall) {
-        Rect rectangle = getRect(wall);
-        return new Point(rectangle.left,rectangle.top);
-    }
-
-    private Point getWallUpperRight(MazeWall wall) {
-        Rect rectangle = getRect(wall);
-        return new Point(rectangle.right,rectangle.top);
-    }
-
-    private Point getWallBottomLeft(MazeWall wall) {
-        Rect rectangle = getRect(wall);
-        return new Point(rectangle.left,rectangle.bottom);
-    }
-
-    private Point getWallBottomRight(MazeWall wall) {
-        Rect rectangle = getRect(wall);
-        return new Point(rectangle.right,rectangle.bottom);
-    }
 
    private void checkGameOver() {
        if (ballHandler.getyPos() > maze.getHeight()* wallLength) {
@@ -136,10 +116,6 @@ public class MazeCanvas extends View {
         for(SendEndGame listener: listeners){
             listener.sendTimer(timer, getContext());
         }
-
-
-
-
 
        /*
          Utilize a dialog box to retrieve a username from the user

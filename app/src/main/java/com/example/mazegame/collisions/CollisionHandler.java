@@ -6,7 +6,7 @@ import android.graphics.Rect;
 public class CollisionHandler{
     private static final String TAG = "COLLISIONS";
 
-    public static Collided hascollided(float ballx, float bally, float radius, Rect rectangle){
+    public static Collided hasCollided(float ballx, float bally, float radius, Rect rectangle){
         Point rectpos = getWallUpperLeft(rectangle);
         float centerx = ballx + radius;
         float centery = bally + radius;
@@ -15,12 +15,10 @@ public class CollisionHandler{
         float distancex = centerx - nearestx;
         float distancey = centery - nearesty;
 
-
         if((distancex * distancex + distancey * distancey) <= (radius * radius)){
-           // Log.d(TAG, "distx: "+distancex +" disty: "+ distancey);
-            return new Collided(true, distancex, distancey, nearestx, nearesty);
+            return new Collided(true, distancex, distancey);
         }else{
-            return new Collided(false, distancex, distancey, nearestx, nearesty);
+            return new Collided(false, distancex, distancey);
         }
 
     }
