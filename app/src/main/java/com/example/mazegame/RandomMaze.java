@@ -118,12 +118,11 @@ public class RandomMaze extends Maze{
 
     private void createWalls(){
         for (int i = 0; i < height; i++) {
-             String[] mazeData = line.split(",");
             for (int j = 0; j < width; j++) {
-                if (parseInt(mazeData[j]) == 1 || parseInt(mazeData[j]) == 3) {
+                if ((mazeGrid[j][i].getValue()) == 1 || (mazeGrid[j][i].getValue()) == 3) {
                     addWall(new MazeWall(i, j, Orientation.vertical));
                 }
-                if (parseInt(mazeData[j]) == 2 || parseInt(mazeData[j]) == 3) {
+                if ((mazeGrid[j][i]).getValue() == 2 || (mazeGrid[j][i].getValue()) == 3) {
                     addWall(new MazeWall(i,j, Orientation.horizontal));
                 }
             }
