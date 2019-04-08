@@ -35,7 +35,6 @@ public class BallHandler implements SensorEventListener {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             xaccel = -event.values[0];
             yaccel = event.values[1];
-           // Log.d(TAG, "xaccel: "+xaccel+" yaccel: "+yaccel);
             updatedBall();
 
         }
@@ -50,61 +49,58 @@ public class BallHandler implements SensorEventListener {
     private void updatedBall() {
         float oldx = xpos;
         float oldy = ypos;
+        
+        float frameLength = 0.666f;
+        xvel += (xaccel * frameLength);
+        yvel += (yaccel * frameLength);
 
+        float xdisplace = (xvel / 2) * frameLength;
+        float ydisplace = (yvel / 2) * frameLength;
 
-
-
-            float frameLength = 0.666f;
-            xvel += (xaccel * frameLength);
-            yvel += (yaccel * frameLength);
-
-
-            float xdisplace = (xvel / 2) * frameLength;
-            float ydisplace = (yvel / 2) * frameLength;
-
-
-
-            xpos += xdisplace;
-            ypos += ydisplace;
-
-            //Log.d(TAG, ""+collisions.isEmpty());
+        xpos += xdisplace;
+        ypos += ydisplace;
 
         checkOutofBounds();
-        calcuateWallCollisions(oldx, oldy);
-
-
-
-
-
-
-
+        calculateWallCollisions(oldx, oldy);
 
     }
 
-    public void calcuateWallCollisions(float oldx, float oldy){
+    private void calculateWallCollisions(float oldx, float oldy){
         for (int i = 0; i < maze.getMaze().getWalls().size(); i++) {
-            Collided col = CollisionHandler.hascollided(xpos, ypos, radius, maze.getRect(maze.getMaze().getWalls().get(i)));
+            Collided col = CollisionHandler.hasCollided(xpos, ypos, radius, maze.getRect(maze.getMaze().getWalls().get(i)));
             if(col.isHasCollided()){
-                if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
-                    ypos = oldy;
-                    yvel = 0;
-                }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
-                    xpos = oldx;
-                    xvel = 0;
-                } else if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
-                    ypos = oldy;
-                    yvel = 0;
-
-                }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
-                    xpos = oldx;
-                    xvel = 0;
-
-                }
+                calculateCollision(col, oldx, oldy);
             }
         }
     }
+    
+    private void calculateCollision(Collided col, float oldx, float oldy){
+        if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
+            stopBally(oldy);
+        }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
+            stopBallx(oldx);
+        } else if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
+            stopBally(oldy);
+        }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
+            stopBallx(oldx);
 
-    public void checkOutofBounds(){
+        }
+    }
+    
+    private void stopBallx(float oldx){
+        xpos = oldx;
+        xvel = 0;
+    }
+    
+    private void stopBally(float oldy){
+        ypos = oldy;
+        yvel = 0;
+
+    }
+    
+    
+
+    private void checkOutofBounds(){
         if (xpos > xMax - radius) {
             xpos = xMax - radius;
             xvel = 0;
@@ -131,13 +127,8 @@ public class BallHandler implements SensorEventListener {
         return xpos;
     }
 
-
     public void setMaze(MazeCanvas maze){this.maze = maze;}
-
-
-    public float getRadius() {
-        return radius;
-    }
+    
 
     public void setRadius(float radius){
         this.radius = radius;

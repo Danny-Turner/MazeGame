@@ -47,7 +47,6 @@ public class MazeActivity extends Activity implements SendEndGame{
         MazeReader test = new MazeReader();
         Bundle extras = getIntent().getExtras();
         try {
-
             test.loadMaze(getAssets().open(extras.getString("Maze")));
         } catch (IOException e) {
             Log.e("MainActivity", "Could not read MazeData");
