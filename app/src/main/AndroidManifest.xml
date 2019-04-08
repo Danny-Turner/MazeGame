@@ -12,6 +12,7 @@
         <activity android:name=".MazeActivity"></activity>
         <activity android:name=".ScorePage"></activity>
         <activity android:name=".Difficulties"></activity>
+        <activity android:name=".ScoreCreator"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
