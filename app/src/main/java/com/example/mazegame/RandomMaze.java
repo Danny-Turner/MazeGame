@@ -30,23 +30,6 @@ public class RandomMaze extends Maze{
         }
     }
 
-    private int numberUnvisitedNeighbors(int row, int column) {
-        int count = 0;
-        if (row > 0 && !mazeGrid[row-1][column].isVisited()) {
-            count++;
-        }
-        if (row < height-1 && !mazeGrid[row+1][column].isVisited()) {
-            count++;
-        }
-        if (column > 0 && !mazeGrid[row][column-1].isVisited()) {
-            count++;
-        }
-        if (column < width-1 && !mazeGrid[row][column+1].isVisited()) {
-            count++;
-        }
-        return count;
-    }
-
     private ArrayList<Direction> unvisitedNeighbors(int row, int column) {
         ArrayList<Direction> directions = new ArrayList<>();
         if (row > 0 && !mazeGrid[row-1][column].isVisited()) {
@@ -66,14 +49,12 @@ public class RandomMaze extends Maze{
 
 
       public void generateRandomPaths(){
-        int count = 1;
-        int row = 0;
-        int column = 0;
-        mazeGrid[0][0].setVisited(true);
-        mazeStack.push(mazeGrid[0][0]);
-        while (count < width*height) {
-            if (numberUnvisitedNeighbors(row,column) >0) {
-                count +=1;
+        int row = (int)(height/3);
+        int column = (int) (width/3);
+        mazeGrid[row][column].setVisited(true);
+        mazeStack.push(mazeGrid[row][column]);
+        while (!mazeStack.empty() ) {
+            if (unvisitedNeighbors(row,column).size() >0) {
                 int index = (int)(Math.random()*unvisitedNeighbors(row,column).size());
                 Direction heading = unvisitedNeighbors(row,column).get(index);
                 if (heading.equals(Direction.UP)) {

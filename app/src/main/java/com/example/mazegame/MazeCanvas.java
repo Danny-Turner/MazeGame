@@ -29,7 +29,7 @@ import java.util.Stack;
 public class MazeCanvas extends View {
 
     private BallHandler ballHandler;
-    private int displayWidth, displayHeight, wallLength, wallThickness;
+    private int wallLength, wallThickness;
     private Paint wallPaint,timerPaint;
     private Maze maze;
     private Bitmap ball;
@@ -43,13 +43,12 @@ public class MazeCanvas extends View {
         listeners = new ArrayList<>();
         wallPaint = new Paint();
         timerPaint = new Paint();
-        timerPaint.setColor(Color.WHITE);
-        timerPaint.setTextSize(50f);
+        timerPaint.setColor(Color.DKGRAY );
+        timerPaint.setTextSize(60f);
+        timerPaint.setTextAlign(Paint.Align.CENTER) ;
         timer = new Timer();
         timer.start();
         this.maze = maze;
-        this.displayWidth = displayWidth;
-        this.displayHeight = displayHeight;
         this.ballHandler = ballHandler;
         int horizontalWallLength = (int) displayWidth / maze.getWidth();
         int verticalWallLength = (int) displayHeight / maze.getHeight();
@@ -76,7 +75,7 @@ public class MazeCanvas extends View {
         super.onDraw(canvas);
         drawMaze(maze,canvas);
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
-        canvas.drawText(timer.displayTime(),50,50,timerPaint);
+        canvas.drawText(timer.displayTime(),canvas.getWidth()/2,timerPaint.descent()*4,timerPaint);
         checkGameOver();
         if (!gameOver) {
             invalidate();
@@ -97,11 +96,13 @@ public class MazeCanvas extends View {
 
     public Rect getRect(MazeWall wall) {
         if (wall.getDirection() == Orientation.horizontal) {
-            return new Rect(wall.getColumn()*wallLength,wall.getRow()*wallLength,
-                    (wall.getColumn()+1)*wallLength, wall.getRow()*wallLength+wallThickness);
+            return new Rect(wall.getColumn()*wallLength - (int)(wallThickness/2),
+                    wall.getRow()*wallLength, (wall.getColumn()+1)*wallLength + (int)(wallThickness/2),
+                    wall.getRow()*wallLength+wallThickness);
         }
-        return new Rect(wall.getColumn()*wallLength-1,wall.getRow()*wallLength,
-                wall.getColumn()*wallLength+wallThickness, (wall.getRow()+1)*wallLength);
+        return new Rect(wall.getColumn()*wallLength - (int)(wallThickness/2),
+                wall.getRow()*wallLength, wall.getColumn()*wallLength + (int)(wallThickness/2),
+                (wall.getRow()+1)*wallLength);
     }
 
 
@@ -123,18 +124,7 @@ public class MazeCanvas extends View {
          call ScorePage.addNewScore() which takes the String username and the raw Long from the timer
        */
 
-       /*
-       PopupWindow popup = new PopupWindow();
-       popup.setOnDismissListener(new PopupWindow.OnDismissListener(){
-           @Override
-           public void onDismiss() {
-           }
-       });
-       popup.showAtLocation(this, Gravity.CENTER, 50,50);
-        */
-
-
-   }
+    }
 
    public void addAsEndGameListener(SendEndGame listener){
         this.listeners.add(listener);
