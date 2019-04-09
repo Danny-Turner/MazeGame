@@ -43,7 +43,7 @@ public class MazeCanvas extends View {
         listeners = new ArrayList<>();
         wallPaint = new Paint();
         timerPaint = new Paint();
-        timerPaint.setColor(Color.DKGRAY );
+        timerPaint.setColor(Color.WHITE );
         timerPaint.setTextSize(60f);
         timerPaint.setTextAlign(Paint.Align.CENTER) ;
         timer = new Timer();
@@ -75,7 +75,7 @@ public class MazeCanvas extends View {
         super.onDraw(canvas);
         drawMaze(maze,canvas);
         canvas.drawBitmap(ball, ballHandler.getxPos(), ballHandler.getyPos(), null);
-        canvas.drawText(timer.displayTime(),canvas.getWidth()/2,timerPaint.descent()*4,timerPaint);
+        canvas.drawText(timer.displayTime(),canvas.getWidth()/2,timerPaint.descent()*5,timerPaint);
         checkGameOver();
         if (!gameOver) {
             invalidate();
