@@ -11,6 +11,7 @@
     <string name="add_score_test">Add Score Test</string>
     <string name="submit">Submit</string>
     <string name="playername_input">playername</string>
+    <string name="player">Player</string>
 
 
 </resources>

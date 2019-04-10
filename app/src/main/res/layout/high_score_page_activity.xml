@@ -37,7 +37,7 @@
         android:layout_width="117dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
-        android:text="@string/playername_input"
+        android:text="@string/player"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="36sp"
@@ -45,18 +45,4 @@
         app:layout_constraintBottom_toTopOf="@+id/score_display"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/addScoreTestButton"
-        android:layout_width="221dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="92dp"
-        android:text="@string/add_score_test"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_display" />
 </android.support.constraint.ConstraintLayout>
