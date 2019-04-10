@@ -22,7 +22,6 @@ public class ScorePage extends Activity {
         topScoresList = new ArrayList<>(10);
         isHighScore = false;
         Score_Display = new TextView(this);
-
         displayScores();
         findIDs();
     }
@@ -31,8 +30,6 @@ public class ScorePage extends Activity {
         setContentView(R.layout.high_score_page_activity);
         Score_Display = findViewById(R.id.name_input_box);
     }
-
-
 
 
     private void addScoreTest(){
@@ -67,6 +64,7 @@ public class ScorePage extends Activity {
         Score_Display.setTextSize(25);
         LinearLayoutView.addView(Score_Display);
         for (int i=0; i<9;i++){
+            // print out all variable assignments to hunt the error
             Score_Display.append((CharSequence) topScoresList.get(i));
             Score_Display.append("\n");
         }
