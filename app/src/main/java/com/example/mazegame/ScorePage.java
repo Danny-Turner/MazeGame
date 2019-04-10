@@ -55,7 +55,12 @@ public class ScorePage extends Activity {
         //topScoresList.sort();
     }
 
-    public boolean isHighScore(long time) {
-        return false;
+    public boolean isHighScore(long newTime) {
+        for (int i=0; i<10; i++) {
+            if (newTime < topScoresList.get(i).getTime()) {
+                isHighScore=true;
+            }
+        }
+        return isHighScore;
     }
 }

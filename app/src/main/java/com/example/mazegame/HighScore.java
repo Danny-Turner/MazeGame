@@ -13,7 +13,7 @@ public class HighScore{
         this.username = name;
     }
 
-    public long getTime_in_seconds(){return (time_in_seconds);}
+    public long getTime(){return (time_in_seconds);}
 
     public String getUsername(){return username;}
 
