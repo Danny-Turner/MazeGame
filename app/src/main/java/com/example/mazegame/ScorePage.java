@@ -4,41 +4,33 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class ScorePage extends Activity {
     private static ArrayList<HighScore> topScoresList;
-    private Button addScoreTestButton;
-    private TextView Score_Display;
     private boolean isHighScore;
+    public TextView Score_Display;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.high_score_page_activity);
-        findIDs();
-        topScoresList = new ArrayList<>();
+        topScoresList = new ArrayList<>(10);
         isHighScore = false;
-        addScoreTestButton();
+        Score_Display = new TextView(this);
+        displayScores();
+        findIDs();
     }
 
     private void findIDs(){
         setContentView(R.layout.high_score_page_activity);
-        addScoreTestButton = findViewById(R.id.addScoreTestButton);
         Score_Display = findViewById(R.id.name_input_box);
     }
 
-
-    private void addScoreTestButton(){
-        addScoreTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addScoreTest();
-            }
-        });
-    }
 
     private void addScoreTest(){
         addNewScore("test", (long) 1000000);
@@ -55,7 +47,28 @@ public class ScorePage extends Activity {
         //topScoresList.sort();
     }
 
-    public boolean isHighScore(long time) {
-        return false;
+    // compares newTime against the top 10 scores in topScoresList
+    // if newTime is a faster time than ANY of the top 10,
+    // then isHighScore = true
+    public boolean isHighScore(long newTime) {
+        for (int i=0; i<10; i++) {
+            if (newTime < topScoresList.get(i).getTime()) {
+                isHighScore = true;
+            }
+        }
+        return isHighScore;
     }
+
+    public void displayScores(){
+        LinearLayout LinearLayoutView = new LinearLayout(this);
+        Score_Display.setTextSize(25);
+        LinearLayoutView.addView(Score_Display);
+        for (int i=0; i<9;i++){
+            // print out all variable assignments to hunt the error
+            Score_Display.append((CharSequence) topScoresList.get(i));
+            Score_Display.append("\n");
+        }
+        setContentView(LinearLayoutView);
+    }
+
 }

@@ -8,10 +8,6 @@ public class Collided {
         this.hasCollided = hasCollided;
         this.distancex = distancex;
         this.distancey = distancey;
-
-
-
-
     }
 
     public boolean isHasCollided() {
