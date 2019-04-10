@@ -115,21 +115,13 @@ public class MazeCanvas extends View {
    private void endGame() {
         timer.stop();
         for(SendEndGame listener: listeners){
-            listener.sendTimer(timer, getContext());
+            listener.sendTimer(timer);
         }
-
-       /*
-         Utilize a dialog box to retrieve a username from the user
-         Use timer.getElapsedTime() for the 'score' portion of the HighScore object
-         call ScorePage.addNewScore() which takes the String username and the raw Long from the timer
-       */
-
     }
 
    public void addAsEndGameListener(SendEndGame listener){
         this.listeners.add(listener);
    }
-
 
 }
 

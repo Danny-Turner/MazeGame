@@ -39,18 +39,13 @@ public class MazeActivity extends Activity implements SendEndGame{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //TODO: test bounds
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x, point.y);
         Bundle extras = getIntent().getExtras();
         maze = getMaze(extras.getString("Maze").toString());
-        //mazeCanvas = new MazeCanvas(this, point.x, point.y, hardMaze, ballhandler);
         mazeCanvas = new MazeCanvas(this, point.x, point.y, maze, ballhandler);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
-        //need to create a canvas, the object should be the canvas
-        //try to create the maze in the canvas at first
-        //or may need to create it in the xml
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mazeCanvas.addAsEndGameListener(this);
     }
@@ -58,12 +53,10 @@ public class MazeActivity extends Activity implements SendEndGame{
     @Override
     protected void onStart() {
         super.onStart();
-        //registers the listener on start
         sensorManager.registerListener(ballhandler, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
-    //removes the listener on close
     @Override
     protected void onStop() {
         sensorManager.unregisterListener(ballhandler);
@@ -79,7 +72,7 @@ public class MazeActivity extends Activity implements SendEndGame{
     }
 
     @Override
-    public void sendTimer(final Timer timer, Context context) {
+    public void sendTimer(final Timer timer) {
         Intent forwardIntent = new Intent(MazeActivity.this, MainActivity.class);
         startActivity(forwardIntent);
 

@@ -3,5 +3,5 @@ package com.example.mazegame;
 import android.content.Context;
 
 public interface SendEndGame {
-    void sendTimer(Timer timer, Context context);
+    void sendTimer(Timer timer);
 }
