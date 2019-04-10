@@ -9,17 +9,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ScorePage extends Activity {
-    private static ArrayList<HighScore> HighScores;
+    private static ArrayList<HighScore> topScoresList;
     private Button addScoreTestButton;
     private TextView Score_Display;
-
+    private boolean isHighScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.high_score_page_activity);
         findIDs();
-        HighScores = new ArrayList<>();
+        topScoresList = new ArrayList<>();
+        isHighScore = false;
         addScoreTestButton();
     }
 
@@ -44,12 +45,17 @@ public class ScorePage extends Activity {
     }
 
     public void addNewScore(String name, Long millitime){
-        HighScores.add(new HighScore(name, millitime));
+        topScoresList.add(new HighScore(name, millitime));
     }
 
-    public static void addNewScore(HighScore hs){HighScores.add(hs);}
+    public static void addNewScore(HighScore hs){
+        topScoresList.add(hs);}
 
     private void sortScores(){
-        //HighScores.sort();
+        //topScoresList.sort();
+    }
+
+    public boolean isHighScore(long time) {
+        return false;
     }
 }

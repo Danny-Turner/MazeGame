@@ -1,9 +1,12 @@
 package com.example.mazegame;
 import java.util.Random;
 
-public class HighScore implements Comparable{
+enum Maze_Difficulty {Easy, Medium, Hard, Random}
+
+public class HighScore{
     private long time_in_seconds;
     private String username;
+
 
     public HighScore(String name, long time) {
         this.time_in_seconds = time/1000;
@@ -20,11 +23,4 @@ public class HighScore implements Comparable{
         ScorePage.addNewScore( new HighScore(testname,r.nextInt(101)));
     }
 
-
-    // This needs to be completed to properly sort the list of scores.
-    // Potentially divide by difficulty then sort within each bracket?
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
 }
