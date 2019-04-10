@@ -2,7 +2,6 @@ package com.example.mazegame;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,13 +15,13 @@ public class ScorePage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scores);
+        setContentView(R.layout.high_score_page_activity);
         findIDs();
         addScoreTestButton();
     }
 
     private void findIDs(){
-        setContentView(R.layout.activity_scores);
+        setContentView(R.layout.high_score_page_activity);
         addScoreTestButton = findViewById(R.id.addScoreTestButton);
     }
 

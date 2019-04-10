@@ -37,7 +37,7 @@
         android:layout_width="117dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
-        android:text="@string/name"
+        android:text="@string/playername_input"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="36sp"
