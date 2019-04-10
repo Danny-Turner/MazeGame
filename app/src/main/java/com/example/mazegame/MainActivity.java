@@ -3,10 +3,19 @@ package com.example.mazegame;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
+
 public class MainActivity extends AppCompatActivity {
+    public static ArrayList<HighScore> topScoresList;
     private Button toScores;
     private Button toDifficulty;
     private Button toNewScore;
@@ -20,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         toScoresButton();
         toDifficultyButton();
         toNewScoreButton();
+        topScoresList = new ArrayList<>();
+        try {
+            loadHighScores(getAssets().open("highscoresfile"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void findIDs(){
@@ -71,4 +86,17 @@ public class MainActivity extends AppCompatActivity {
         Intent forwardIntent = new Intent(MainActivity.this, ScoreCreator.class);
         startActivity(forwardIntent);
     }
+
+    public static void loadHighScores(InputStream scoreInput) throws IOException {
+        Scanner input = new Scanner(scoreInput);
+        while (input.hasNextLine()) {
+            String line = input.nextLine();
+            String[] scoreData = line.split(",");
+            Log.e("inithighscores",scoreData[0]+" "+scoreData[1]);
+            topScoresList.add(new HighScore(scoreData[0],Long.parseLong(scoreData[1])));
+        }
+        input.close();
+    }
+
+
 }
