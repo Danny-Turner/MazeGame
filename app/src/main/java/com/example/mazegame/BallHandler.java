@@ -33,8 +33,14 @@ public class BallHandler implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            xaccel = -event.values[0];
-            yaccel = event.values[1];
+            float xsensor = -event.values[0];
+            float ysensor = event.values[1];
+           if(xsensor < 2 && xsensor > -2) {
+               xaccel = xsensor;
+           }
+           if(ysensor < 2 && ysensor > -2) {
+               yaccel = ysensor;
+           }
             updatedBall();
 
         }
@@ -79,7 +85,8 @@ public class BallHandler implements SensorEventListener {
             stopBally(oldy);
         }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
             stopBallx(oldx);
-        } else if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
+        } else
+    if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
             stopBally(oldy);
         }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
             stopBallx(oldx);
@@ -113,7 +120,6 @@ public class BallHandler implements SensorEventListener {
             ypos = yMax - radius;
             yvel = 0;
         } else if (ypos < 0) {
-
             ypos = 0;
             yvel = 0;
 
