@@ -16,7 +16,7 @@ public class ScoreCreator extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.new_score_activity);
         findIDs();
         submit_score_button();
     }
