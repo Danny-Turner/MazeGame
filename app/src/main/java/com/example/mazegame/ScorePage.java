@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class ScorePage extends Activity {
     private static ArrayList<HighScore> topScoresList;
-    private Button addScoreTestButton;
     private boolean isHighScore;
     public TextView Score_Display;
 
@@ -20,29 +19,21 @@ public class ScorePage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.high_score_page_activity);
-        findIDs();
-        topScoresList = new ArrayList<>();
+        topScoresList = new ArrayList<>(10);
         isHighScore = false;
-        addScoreTestButton();
         Score_Display = new TextView(this);
+
         displayScores();
+        findIDs();
     }
 
     private void findIDs(){
         setContentView(R.layout.high_score_page_activity);
-        addScoreTestButton = findViewById(R.id.addScoreTestButton);
         Score_Display = findViewById(R.id.name_input_box);
     }
 
 
-    private void addScoreTestButton(){
-        addScoreTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addScoreTest();
-            }
-        });
-    }
+
 
     private void addScoreTest(){
         addNewScore("test", (long) 1000000);
