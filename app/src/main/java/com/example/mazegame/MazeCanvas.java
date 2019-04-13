@@ -66,9 +66,15 @@ public class MazeCanvas extends View {
         float radius_float = length;
         ballHandler.setRadius(radius_float/2);
         ballHandler.setMaze(this);
+        setBallstartPosition();
         ball = Bitmap.createScaledBitmap(ballSrc, length, length, true);
     }
 
+    private void setBallstartPosition(){
+        float temp_pos = wallThickness + ballHandler.getRadius();
+        ballHandler.setxPos(temp_pos);
+        ballHandler.setyPos(temp_pos);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {

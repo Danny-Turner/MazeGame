@@ -23,7 +23,6 @@ public class BallHandler implements SensorEventListener {
     public BallHandler(float xMax, float yMax){
         this.xMax = xMax;
         this.yMax = yMax;
-        Log.d("MAX", "xMax: " + xMax + " yMax: " + yMax);
         this.radius = 0.0f;
 
 
@@ -135,10 +134,13 @@ public class BallHandler implements SensorEventListener {
 
     public void setMaze(MazeCanvas maze){this.maze = maze;}
     
-
+    public float getRadius(){return this.radius;}
     public void setRadius(float radius){
         this.radius = radius;
     }
+
+    public void setxPos(float xpos){this.xpos = xpos;}
+    public void setyPos(float ypos){this.ypos = ypos;}
 
 
 }
