@@ -80,16 +80,21 @@ public class BallHandler implements SensorEventListener {
     }
     
     private void calculateCollision(Collided col, float oldx, float oldy){
-        if(Math.abs(col.getDistancex()) < (Math.abs(col.getDistancey()))){
+        if(Math.abs(col.getDistancex()) <= (Math.abs(col.getDistancey()))){
             stopBally(oldy);
-        }else if(Math.abs(col.getDistancex()) > (Math.abs(col.getDistancey()))){
+        }else if(Math.abs(col.getDistancex()) >= (Math.abs(col.getDistancey()))){
             stopBallx(oldx);
-        } else
-    if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
+        } else if (Math.abs(col.getDistancex()) == (Math.abs(col.getDistancey()))) {
+            stopBally(oldy);
+            stopBallx(oldx);
+        }else   if (Math.abs(col.getDistancey()) < Math.abs(radius) && Math.abs(col.getDistancex()) == 0) {
             stopBally(oldy);
         }else if (Math.abs(col.getDistancex()) < Math.abs(radius) && Math.abs(col.getDistancey()) == 0) {
             stopBallx(oldx);
 
+        } else {
+            stopBally(oldy);
+            stopBallx(oldx);
         }
     }
     
