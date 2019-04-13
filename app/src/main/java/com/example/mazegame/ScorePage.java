@@ -2,6 +2,7 @@ package com.example.mazegame;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,12 +19,12 @@ public class ScorePage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.high_score_page_activity);
-        topScoresList = new ArrayList<>(10);
+        findIDs();
+        topScoresList = MainActivity.topScoresList;
         isHighScore = false;
         Score_Display = new TextView(this);
         displayScores();
-        findIDs();
+
     }
 
     private void findIDs(){
@@ -63,9 +64,10 @@ public class ScorePage extends Activity {
         LinearLayout LinearLayoutView = new LinearLayout(this);
         Score_Display.setTextSize(25);
         LinearLayoutView.addView(Score_Display);
-        for (int i=0; i<9;i++){
+        Log.e("scores",Integer.toString(topScoresList.size()));
+        for (int i=0; i< Math.min(9,topScoresList.size());i++){
             // print out all variable assignments to hunt the error
-            Score_Display.append((CharSequence) topScoresList.get(i));
+            Score_Display.append((CharSequence) topScoresList.get(i).getUsername());
             Score_Display.append("\n");
         }
         setContentView(LinearLayoutView);
