@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Display;
 
 import com.example.mazegame.MazeCreation.Maze;
-import com.example.mazegame.MazeCreation.MazeReader;
+import com.example.mazegame.MazeCreation.PrebuiltMazeReader;
 import com.example.mazegame.MazeCreation.RandomMaze;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class MazeActivity extends Activity implements SendEndGame{
         Point point = setUpBoundries();
         ballhandler = new BallHandler(point.x, point.y);
         Bundle extras = getIntent().getExtras();
-        maze = getMaze(extras.getString("Maze").toString());
+        maze = getMaze(extras.getString("Maze"));
         mazeCanvas = new MazeCanvas(this, point.x, point.y, maze, ballhandler);
         mazeCanvas.setBackgroundColor(Color.BLUE);
         setContentView(mazeCanvas);
@@ -77,21 +77,21 @@ public class MazeActivity extends Activity implements SendEndGame{
     }
 
     private Maze getMaze(String selected) {
+        Maze currentMaze;
         if (selected.equals("random")) {
-            RandomMaze random = new RandomMaze(10,15);
-            random.generateRandomPaths();
-            random.createWalls();
-            return random;
+            RandomMaze randomMaze = new RandomMaze(10,15);
+            randomMaze.generateRandomPaths();
+            randomMaze.createWalls();
+            return randomMaze;
         } else {
-            Maze prebuiltMaze;
-            MazeReader test = new MazeReader();
-
             try {
-                test.loadMaze(getAssets().open(selected));
+                PrebuiltMazeReader.loadMaze(getAssets().open(selected));
+
+
             } catch (IOException e) {
                 Log.e("MainActivity", "Could not read MazeData");
             }
-            prebuiltMaze = test.getMaze();
+            Maze prebuiltMaze = PrebuiltMazeReader.getMaze();
             return prebuiltMaze;
         }
     }

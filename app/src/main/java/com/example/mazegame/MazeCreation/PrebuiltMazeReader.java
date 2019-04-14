@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-public class MazeReader {
+public  class PrebuiltMazeReader  {
     private static Maze maze;
 
 
-    public Maze getMaze() {
+    public static Maze getMaze() {
         return maze;
     }
 
