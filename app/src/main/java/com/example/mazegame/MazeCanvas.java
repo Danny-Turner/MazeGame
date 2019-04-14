@@ -1,30 +1,20 @@
 package com.example.mazegame;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.os.SystemClock;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.mazegame.MazeCreation.Maze;
+import com.example.mazegame.MazeCreation.MazeWall;
+import com.example.mazegame.MazeCreation.Orientation;
+
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class MazeCanvas extends View {
 

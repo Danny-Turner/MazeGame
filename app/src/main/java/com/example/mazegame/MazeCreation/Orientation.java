@@ -1,3 +1,3 @@
-package com.example.mazegame;
+package com.example.mazegame.MazeCreation;
 
 public enum Orientation { horizontal, vertical }

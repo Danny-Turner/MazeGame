@@ -1,4 +1,4 @@
-package com.example.mazegame;
+package com.example.mazegame.MazeCreation;
 
 public class RandomMazeCellData {
     private boolean visited;

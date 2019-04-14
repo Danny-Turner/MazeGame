@@ -1,14 +1,11 @@
-package com.example.mazegame;
+package com.example.mazegame.MazeCreation;
 
-
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 import static java.lang.Integer.parseInt;
 
-enum Direction {UP,DOWN,LEFT,RIGHT}
 
 public class RandomMaze extends Maze{
     private int width, height;

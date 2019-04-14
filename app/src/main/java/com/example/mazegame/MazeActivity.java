@@ -1,7 +1,6 @@
 package com.example.mazegame;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,23 +9,14 @@ import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.mazegame.MazeCreation.Maze;
+import com.example.mazegame.MazeCreation.MazeReader;
+import com.example.mazegame.MazeCreation.RandomMaze;
 
 import java.io.IOException;
-
-import static android.content.ContentValues.TAG;
 
 public class MazeActivity extends Activity implements SendEndGame{
 

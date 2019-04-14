@@ -1,4 +1,4 @@
-package com.example.mazegame;
+package com.example.mazegame.MazeCreation;
 
 import java.io.IOException;
 import java.io.InputStream;
