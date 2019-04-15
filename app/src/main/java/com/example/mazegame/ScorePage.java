@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.function.ToLongFunction;
 
 public class ScorePage extends Activity {
     private static ArrayList<HighScore> topScoresList;
@@ -25,6 +27,7 @@ public class ScorePage extends Activity {
         topScoresList = MainActivity.topScoresList;
         isHighScore = false;
         Score_Display = new TextView(this);
+        sortScores();
         displayScores();
 
     }
@@ -42,11 +45,14 @@ public class ScorePage extends Activity {
     public static void addNewScore(HighScore hs){
         topScoresList.add(hs);}
 
-    //private void sortScores(){
-      //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        //    topScoresList.sort(Comparator.comparingLong(HighScore.class.getTime()));
-        //}
-    //}
+    private void sortScores(){
+        Collections.sort(topScoresList, new Comparator<HighScore>() {
+                @Override
+                public int compare(HighScore o1, HighScore o2) {
+                    return Long.compare(o1.getTime(), o2.getTime());
+                }
+            });
+    }
 
     // compares newTime against the top 10 scores in topScoresList
     // if newTime is a faster time than ANY of the top 10,
@@ -68,7 +74,8 @@ public class ScorePage extends Activity {
         for (int i=0; i< Math.min(9,topScoresList.size());i++){
             // print out all variable assignments to hunt the error
             Score_Display.append(topScoresList.get(i).getUsername());
-            //Score_Display.append(topScoresList.get(i).getTime().toString());
+            Score_Display.append(": ");
+            Score_Display.append(Long.toString(topScoresList.get(i).getTime()));
             Score_Display.append("\n");
         }
         setContentView(LinearLayoutView);
