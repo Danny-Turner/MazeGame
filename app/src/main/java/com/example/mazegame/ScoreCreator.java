@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 public class ScoreCreator extends Activity {
     long playerScore;
-    int playerDifficulty;
+    int playerDifficulty = 0;
     private Button submit_button;
     private EditText name_input_box;
 
@@ -17,6 +17,8 @@ public class ScoreCreator extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_score_activity);
+        Bundle extras = getIntent().getExtras();
+        playerScore = Long.parseLong(extras.getString("Score"));
         findIDs();
         submit_score_button();
     }
