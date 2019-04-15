@@ -1,6 +1,7 @@
 package com.example.mazegame;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ScorePage extends Activity {
     private static ArrayList<HighScore> topScoresList;
@@ -33,10 +35,6 @@ public class ScorePage extends Activity {
     }
 
 
-    private void addScoreTest(){
-        addNewScore("test", (long) 1000000);
-    }
-
     public void addNewScore(String name, Long millitime){
         topScoresList.add(new HighScore(name, millitime));
     }
@@ -44,9 +42,11 @@ public class ScorePage extends Activity {
     public static void addNewScore(HighScore hs){
         topScoresList.add(hs);}
 
-    private void sortScores(){
-        //topScoresList.sort();
-    }
+    //private void sortScores(){
+      //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        //    topScoresList.sort(Comparator.comparingLong(HighScore.class.getTime()));
+        //}
+    //}
 
     // compares newTime against the top 10 scores in topScoresList
     // if newTime is a faster time than ANY of the top 10,
@@ -67,7 +67,8 @@ public class ScorePage extends Activity {
         Log.e("scores",Integer.toString(topScoresList.size()));
         for (int i=0; i< Math.min(9,topScoresList.size());i++){
             // print out all variable assignments to hunt the error
-            Score_Display.append((CharSequence) topScoresList.get(i).getUsername());
+            Score_Display.append(topScoresList.get(i).getUsername());
+            //Score_Display.append(topScoresList.get(i).getTime().toString());
             Score_Display.append("\n");
         }
         setContentView(LinearLayoutView);

@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<HighScore> topScoresList;
