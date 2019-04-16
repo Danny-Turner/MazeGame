@@ -3,13 +3,15 @@ package com.example.mazegame;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
+
 public class ScoreCreator extends Activity {
     long playerScore;
-    int playerDifficulty = 0;
     private Button submit_button;
     private EditText name_input_box;
 
@@ -17,8 +19,8 @@ public class ScoreCreator extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_score_activity);
-        Bundle extras = getIntent().getExtras();
-        playerScore = Long.parseLong(extras.getString("Score"));
+        Intent i = getIntent();
+        playerScore = i.getLongExtra("Score",0L);
         findIDs();
         submit_score_button();
     }
@@ -35,9 +37,12 @@ public class ScoreCreator extends Activity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // creates and adds a new high score with the value from the editText box and from the given score.
-                // sends user to mainActivity
-                ScorePage.addNewScore(new HighScore(name_input_box.getText().toString()+playerDifficulty,playerScore));
+                try {
+                    HighScoreTable highScore = HighScoreTable.get();
+                    highScore.addNewScore(new HighScore(name_input_box.getText().toString(),playerScore));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 toMainActivity();
             }
         });

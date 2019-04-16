@@ -63,14 +63,10 @@ public class MazeActivity extends Activity implements SendEndGame{
 
     @Override
     public void sendTimer(final Timer timer) {
-        //Intent forwardIntent = new Intent(MazeActivity.this, MainActivity.class);
-        //if (isHighScore(timer.getEllapsedTime() ) {
         Intent forwardIntent = new Intent(MazeActivity.this, ScoreCreator.class);
-        forwardIntent.putExtra("Score",Long.toString(timer.getEllapsedTime()));
+        Log.e("maze",Long.toString(timer.getEllapsedTime()));
+        forwardIntent.putExtra("Score",timer.getEllapsedTime());
         startActivity(forwardIntent);
-        //Intent forwardIntent = new Intent(MazeActivity.this, MainActivity.class);
-       // startActivity(forwardIntent);
-
     }
 
     private Maze getMaze(String selected) {

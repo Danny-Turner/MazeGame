@@ -18,7 +18,7 @@ public class Timer {
     }
 
     public void stop(){
-        endTime = getEllapsedTime();
+        endTime = SystemClock.elapsedRealtime();
         started = false;
     }
 

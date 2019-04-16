@@ -81,8 +81,6 @@ public class RandomMaze extends Maze{
                 column = current.getColumn();
             }
         }
-
-
     }
 
     private void removeUp(RandomMazeCellData cell) {

@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static ArrayList<HighScore> topScoresList;
     private Button toScores;
     private Button toDifficulty;
     private Button toNewScore;
@@ -27,22 +26,13 @@ public class MainActivity extends AppCompatActivity {
         findIDs();
         toScoresButton();
         toDifficultyButton();
-        toNewScoreButton();
-        topScoresList = new ArrayList<>();
-        try {
-            loadHighScores(getAssets().open("highscoresfile"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void findIDs(){
         setContentView(R.layout.activity_main);
         toScores = findViewById(R.id.toScores);
         toDifficulty = findViewById(R.id.toDifficulties);
-        toNewScore = findViewById(R.id.toNewScore);
     }
-
 
     private void toScoresButton() {
         toScores.setOnClickListener(new View.OnClickListener() {
@@ -70,31 +60,6 @@ public class MainActivity extends AppCompatActivity {
     private void toDifficultyActivity() {
         Intent forwardIntent = new Intent(MainActivity.this, Difficulties.class);
         startActivity(forwardIntent);
-    }
-
-    private void toNewScoreButton(){
-        toNewScore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toNewScoreActivity();
-            }
-        });
-    }
-
-    private void toNewScoreActivity(){
-        Intent forwardIntent = new Intent(MainActivity.this, ScoreCreator.class);
-        startActivity(forwardIntent);
-    }
-
-    public static void loadHighScores(InputStream scoreInput) throws IOException {
-        Scanner input = new Scanner(scoreInput);
-        while (input.hasNextLine()) {
-            String line = input.nextLine();
-            String[] scoreData = line.split(",");
-            Log.e("inithighscores",scoreData[0]+" "+scoreData[1]);
-            topScoresList.add(new HighScore(scoreData[0],Long.parseLong(scoreData[1])));
-        }
-        input.close();
     }
 
 
