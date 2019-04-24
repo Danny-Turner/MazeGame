@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
     private Button toScores;
     private Button toDifficulty;
-    private Button toNewScore;
 
 
     @Override

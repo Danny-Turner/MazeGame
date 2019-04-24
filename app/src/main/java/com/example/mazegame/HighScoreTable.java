@@ -1,6 +1,5 @@
 package com.example.mazegame;
 
-import android.content.Context;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -9,14 +8,11 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class HighScoreTable {
-
     private static HighScoreTable instance;
     private static ArrayList<HighScore> topScoresList;
-    Context myContext;
     boolean isHighScore;
 
     public static HighScoreTable get() throws IOException {
-
         if (instance == null) {
             instance = new HighScoreTable();
         }
@@ -27,7 +23,6 @@ public class HighScoreTable {
         topScoresList = new ArrayList<>();
         addNewScore(new HighScore("Dr. Ferrer",10000));
         addNewScore(new HighScore("Rader",15000));
-
     }
 
     public ArrayList<HighScore> getTopScores() {
@@ -35,7 +30,8 @@ public class HighScoreTable {
     }
 
     public static void addNewScore(HighScore hs){
-        topScoresList.add(hs);}
+        topScoresList.add(hs);
+    }
 
     public void sortScores(){
         Collections.sort(topScoresList, new Comparator<HighScore>() {
