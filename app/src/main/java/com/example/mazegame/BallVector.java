@@ -1,83 +1,61 @@
 package com.example.mazegame;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.util.Log;
-
 import com.example.mazegame.collisions.Collided;
 import com.example.mazegame.collisions.CollisionHandler;
 
-
-public class BallHandler implements SensorEventListener {
+public class BallVector {
     private float xvel, yvel = 0.0f;
     private float xpos= 50.0f;
     private float ypos = 30.0f;
-    private float xaccel, yaccel = 0.0f;
     private float xMax, yMax;
     private String TAG = "BALLHANDLING";
     private float radius;
     private MazeCanvas maze;
 
-
-    public BallHandler(float xMax, float yMax){
+    public BallVector(float xMax, float yMax){
         this.xMax = xMax;
         this.yMax = yMax;
         this.radius = 0.0f;
     }
 
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            float xsensor = -event.values[0];
-            float ysensor = event.values[1];
-            /////////////////////////////
-           //give the x any y to ball Handler
-           //create methods in this class to check if the sensor values are too high
-            // then pass the x and y acceleration to BallVector
-            //it first calculates the new position
-            //then it checks that position to see it it hit anything
-            //////////////////////////
-            //first check the velocity
-            //use the velocity to calculate position
-            //then calculate displacement
-
-
-           if(xsensor < 2 && xsensor > -2) {
-               xaccel = xsensor;
-           }
-           if(ysensor < 2 && ysensor > -2) {
-               yaccel = ysensor;
-           }
-            updateBall();
-
-        }
+    public void setMaze(MazeCanvas maze){
+        this.maze = maze;
+    }
+    public void setRadius(float radius) {
+        this.radius = radius;
     }
 
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+    public float getXpos() {
+        return xpos;
     }
 
-    private void updateBall() {
+    public float getYpos() {
+        return ypos;
+    }
+
+    private void updateBall(float xaccel, float yaccel) {
         float oldx = xpos;
         float oldy = ypos;
-        
+
+        Point displace = calculateDisplacement(xaccel, yaccel);
+
+        xpos += displace.getX();
+        ypos += displace.getY();
+
+        checkOutofBounds();
+        calculateWallCollisions(oldx, oldy);
+
+    }
+
+
+    private Point calculateDisplacement(float xaccel, float yaccel){
         float frameLength = 0.666f;
         xvel += (xaccel * frameLength);
         yvel += (yaccel * frameLength);
 
         float xdisplace = (xvel / 2) * frameLength;
         float ydisplace = (yvel / 2) * frameLength;
-
-        xpos += xdisplace;
-        ypos += ydisplace;
-
-        checkOutofBounds();
-        calculateWallCollisions(oldx, oldy);
-
+        return new Point(xdisplace, ydisplace);
     }
 
     private void calculateWallCollisions(float oldx, float oldy){
@@ -88,7 +66,7 @@ public class BallHandler implements SensorEventListener {
             }
         }
     }
-    
+
     private void calculateCollision(Collided col, float oldx, float oldy){
         if(Math.abs(col.getDistancex()) <= (Math.abs(col.getDistancey()))){
             stopBally(oldy);
@@ -107,19 +85,17 @@ public class BallHandler implements SensorEventListener {
             stopBallx(oldx);
         }
     }
-    
+
     private void stopBallx(float oldx){
         xpos = oldx;
         xvel = 0;
     }
-    
+
     private void stopBally(float oldy){
         ypos = oldy;
         yvel = 0;
 
     }
-    
-    
 
     private void checkOutofBounds(){
         if (xpos > xMax - radius) {
@@ -139,23 +115,6 @@ public class BallHandler implements SensorEventListener {
 
         }
     }
-
-    public float getyPos() {
-        return ypos;
-    }
-    public float getxPos() {
-        return xpos;
-    }
-
-    public void setMaze(MazeCanvas maze){this.maze = maze;}
-    
-    public float getRadius(){return this.radius;}
-    public void setRadius(float radius){
-        this.radius = radius;
-    }
-
-    public void setxPos(float xpos){this.xpos = xpos;}
-    public void setyPos(float ypos){this.ypos = ypos;}
 
 
 }

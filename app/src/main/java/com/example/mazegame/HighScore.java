@@ -5,6 +5,7 @@ public class HighScore{
     private String username;
 
 
+    //change the hint
     public HighScore(String name, long time) {
         this.time_in_milliseconds = time;
         this.username = name;
