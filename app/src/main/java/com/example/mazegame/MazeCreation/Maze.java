@@ -28,5 +28,12 @@ public class Maze {
         walls.add(w);
     }
 
+    public boolean contains(MazeWall wall) {
+        for (MazeWall current:walls ) {
+            if (wall.isSame(current)) {return true;}
+        }
+        return false;
+    }
+
 
 }

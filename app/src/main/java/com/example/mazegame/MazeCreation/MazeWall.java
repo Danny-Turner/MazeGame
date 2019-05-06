@@ -23,6 +23,16 @@ public class MazeWall {
     public Orientation getDirection(){
         return direction;
     }
+
+    public boolean isSame(MazeWall wall){
+        if (wall.getColumn() == this.column && wall.getRow() == this.row
+                && wall.getDirection().equals(this.direction)){
+            return true;
+        }
+        return false;
+    }
+
+
 }
 
 
