@@ -43,6 +43,7 @@ public class HighScoreTable {
     }
 
     public boolean isHighScore(long newTime) {
+        isHighScore = false;
         for (int i=0; i<10; i++) {
             if (newTime < topScoresList.get(i).getTime()) {
                 isHighScore = true;

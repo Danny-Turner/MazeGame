@@ -3,8 +3,13 @@ package com.example.mazegame;
 import com.example.mazegame.MazeCreation.Maze;
 import com.example.mazegame.MazeCreation.MazeWall;
 import com.example.mazegame.MazeCreation.Orientation;
+import com.example.mazegame.MazeCreation.PrebuiltMazeReader;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +20,12 @@ import static org.junit.Assert.*;
  */
 public class MazeUnitTest {
     Maze testMaze = new Maze(10,15);
+
+    @Before
+    public void setup() throws IOException {
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("test");
+        PrebuiltMazeReader.loadMaze(in);
+    }
 
     @Test
     public void testAddwalls() {
