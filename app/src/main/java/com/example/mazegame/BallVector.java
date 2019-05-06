@@ -25,15 +25,27 @@ public class BallVector {
         this.radius = radius;
     }
 
+    public float getRadius(){
+        return this.radius;
+    }
+
+    public void setXpos(float xpos){
+        this.xpos = xpos;
+    }
+
     public float getXpos() {
         return xpos;
+    }
+
+    public void setYpos(float ypos){
+        this.ypos = ypos;
     }
 
     public float getYpos() {
         return ypos;
     }
 
-    private void updateBall(float xaccel, float yaccel) {
+    public void updateBall(float xaccel, float yaccel) {
         float oldx = xpos;
         float oldy = ypos;
 
@@ -48,7 +60,7 @@ public class BallVector {
     }
 
 
-    private Point calculateDisplacement(float xaccel, float yaccel){
+    public Point calculateDisplacement(float xaccel, float yaccel){
         float frameLength = 0.666f;
         xvel += (xaccel * frameLength);
         yvel += (yaccel * frameLength);

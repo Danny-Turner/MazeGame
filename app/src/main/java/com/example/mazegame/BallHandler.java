@@ -19,11 +19,13 @@ public class BallHandler implements SensorEventListener {
     private float radius;
     private MazeCanvas maze;
 
+    private BallVector ballVector;
 
     public BallHandler(float xMax, float yMax){
         this.xMax = xMax;
         this.yMax = yMax;
         this.radius = 0.0f;
+        this.ballVector = new BallVector(xMax, yMax);
     }
 
 
@@ -32,16 +34,6 @@ public class BallHandler implements SensorEventListener {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             float xsensor = -event.values[0];
             float ysensor = event.values[1];
-            /////////////////////////////
-           //give the x any y to ball Handler
-           //create methods in this class to check if the sensor values are too high
-            // then pass the x and y acceleration to BallVector
-            //it first calculates the new position
-            //then it checks that position to see it it hit anything
-            //////////////////////////
-            //first check the velocity
-            //use the velocity to calculate position
-            //then calculate displacement
 
 
            if(xsensor < 2 && xsensor > -2) {
@@ -50,7 +42,8 @@ public class BallHandler implements SensorEventListener {
            if(ysensor < 2 && ysensor > -2) {
                yaccel = ysensor;
            }
-            updateBall();
+           ballVector.updateBall(xaccel, yaccel);
+            //updateBall();
 
         }
     }
@@ -141,21 +134,21 @@ public class BallHandler implements SensorEventListener {
     }
 
     public float getyPos() {
-        return ypos;
+        return ballVector.getYpos();
     }
     public float getxPos() {
-        return xpos;
+        return ballVector.getXpos();
     }
 
-    public void setMaze(MazeCanvas maze){this.maze = maze;}
+    public void setMaze(MazeCanvas maze){ballVector.setMaze(maze);}
     
-    public float getRadius(){return this.radius;}
+    public float getRadius(){return ballVector.getRadius();}
     public void setRadius(float radius){
-        this.radius = radius;
+        ballVector.setRadius(radius);
     }
 
-    public void setxPos(float xpos){this.xpos = xpos;}
-    public void setyPos(float ypos){this.ypos = ypos;}
+    public void setxPos(float xpos){ballVector.setXpos(xpos);}
+    public void setyPos(float ypos){ballVector.setYpos(ypos);}
 
 
 }
